@@ -1,0 +1,40 @@
+Handwerksfirma:
+- Möbel Inc.
+
+Ausgaben:
+	Fixkosten:
+	- Miete (+ Inflation)
+	- Mitarbeiterlohn (+ Inflation oder Kündigung oder Streik oder Klage)
+	Variable Kosten
+	- Material
+	- Porto
+
+Module:
+- Lager (für Versand und Rücksendungen + Rohstoffe + Hilfsstoffe + Waren)
+- Buchhaltung (übernimmt Steuererklärung, Zahlungsverfolgung)
+- Entwicklung / Design (für Research)
+- Marketing
+- Produktionshalle
+	- Veredlung von Rohstoffen
+	- Zusammenfügen von Rohstoffen und Hilfsstoffen
+- Qualitätssicherung
+- Technische Dokumentation / Normen
+
+Game Environment:
+- Bankkredite / Zinsen, ggf. gegen Schulden
+- Haftung bei grober Fahrlässigkeit
+- Zertifizierungen
+	- ISO 9001
+- Simulation von Konkurenz
+	- wächst wenn Produkte zu Teuer sind
+	- sinkt wenn Produkte Preiswert sind
+	- beeinflusst durch Marketing
+- Beliebtheits-Simulation
+- Market Saturation Simulieren
+- Random events
+	- Rohstoffknappheit (steigende Rohstoffkosten)
+	- Lieferengpässe (steigende oder verlängerte Versandkosten)
+	- Krieg / Schlagartige Prioritätsänderungen (Beliebtheitsänderungen)
+	- Subventionen (sinkende Rohstoffkosten)
+	- Zuschüsse (Geld, zzgl. Steuern, nach Ausfüllen von Papierkram)
+

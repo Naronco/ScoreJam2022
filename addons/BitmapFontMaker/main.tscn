@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://brol2ico8sua0"]
+
+[node name="BitmapFontTool" type="VBoxContainer"]
+offset_right = 150.0
+offset_bottom = 235.0
+
+[node name="Fontpath" type="LineEdit" parent="."]
+layout_mode = 2
+tooltip_text = "Path3D, where you want your font to be created.
+Must include file name and extension .tres."
+text = "res://new_font.tres"
+placeholder_text = "Path3D to new font (.tres)"
+
+[node name="Texturepath" type="LineEdit" parent="."]
+layout_mode = 2
+tooltip_text = "Path3D to texture.
+Must be in res://.
+Can be PNG, JPEG, etc."
+placeholder_text = "Path3D to font texture"
+
+[node name="Input" type="TextEdit" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Type characters in your bitmap font here, in right order.
+Spaces and special characters are counted too."
+draw_tabs = true
+draw_spaces = true
+
+[node name="Dimensions" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Width" type="SpinBox" parent="Dimensions"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Character width in pixels."
+min_value = 1.0
+max_value = 1000.0
+value = 8.0
+rounded = true
+prefix = "W:"
+suffix = "px"
+
+[node name="Height" type="SpinBox" parent="Dimensions"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Character height in pixels."
+min_value = 1.0
+max_value = 1000.0
+value = 8.0
+rounded = true
+prefix = "H:"
+suffix = "px"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Make bitmap font"
+text = "Make font"
+
+[node name="Output" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+text = "This plugin will create bitmap font from texture."
+clip_text = true

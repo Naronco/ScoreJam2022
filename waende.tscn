@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1n1111s8e24t"]
+
+[ext_resource type="PackedScene" uid="uid://cb16su4gq4xs" path="res://waende.dae" id="1_hikog"]
+[ext_resource type="Material" uid="uid://5vw3scaoey8a" path="res://Wall.material" id="3_37mly"]
+
+[node name="waende" instance=ExtResource("1_hikog")]
+
+[node name="Unten_03" parent="." index="0"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="Oben_03" parent="." index="1"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="Unten_04" parent="." index="2"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="Oben_04" parent="." index="3"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="Unten_Balkon" parent="." index="4"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="Oben_Balkon" parent="." index="5"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="UntenTür_02" parent="." index="6"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="Oben_02" parent="." index="7"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="Unten_01" parent="." index="8"]
+surface_material_override/0 = ExtResource("3_37mly")
+
+[node name="Oben_01" parent="." index="9"]
+surface_material_override/0 = ExtResource("3_37mly")

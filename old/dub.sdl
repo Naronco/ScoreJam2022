@@ -1,0 +1,9 @@
+name "scorejam2022"
+
+sourcePaths "native"
+importPaths "native"
+targetType "dynamicLibrary"
+
+dependency "godot-d" version="~>0.1.14"
+
+preGenerateCommands "dub run godot-d:pregenerate"

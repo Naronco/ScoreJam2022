@@ -1,0 +1,214 @@
+[gd_scene load_steps=19 format=3 uid="uid://b1lpjmmgbed8y"]
+
+[ext_resource type="PackedScene" uid="uid://dmmh6pklckqiy" path="res://DeliveryTruck.tscn" id="1"]
+[ext_resource type="Script" path="res://CameraOrigin.gd" id="2"]
+[ext_resource type="Script" path="res://Player.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://dljm4um4spkw5" path="res://BrickTexture.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bjx60g3bonoqg" path="res://Package.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://c1hmmr68dqhtv" path="res://UIBox.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://c7mlpslno8t08" path="res://InventoryGrid.png" id="7"]
+[ext_resource type="Theme" uid="uid://b0i0qmtemq4qw" path="res://theme.tres" id="8"]
+[ext_resource type="Script" path="res://PackageCount.gd" id="9"]
+[ext_resource type="Script" path="res://InteractLabel.gd" id="10"]
+[ext_resource type="Environment" uid="uid://eklt5i3g1r3s" path="res://default_env.tres" id="12_ixt3a"]
+[ext_resource type="MeshLibrary" uid="uid://cjrdo7u2jyufq" path="res://Waende.tres" id="12_vohnb"]
+
+[sub_resource type="BoxShape3D" id="6"]
+size = Vector3(1.17229, 2.23182, 1.88334)
+
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(103.166, 2, 101.61)
+
+[sub_resource type="StandardMaterial3D" id="5"]
+albedo_texture = ExtResource("4")
+uv1_scale = Vector3(8, 8, 8)
+texture_filter = 4
+
+[sub_resource type="PhysicsMaterial" id="4"]
+rough = true
+
+[sub_resource type="CapsuleShape3D" id="2"]
+radius = 0.3
+height = 1.5
+
+[sub_resource type="SphereShape3D" id="3"]
+radius = 1.633
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CameraOrigin" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0.577353, 0.408244, 0, 0.577345, -0.816501, -0.707107, 0.577353, 0.408244, -4.77305, 0, -5.56859)
+script = ExtResource("2")
+initialFollow = NodePath("../Player")
+
+[node name="Camera3D" type="Camera3D" parent="CameraOrigin"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 70, -0.224)
+fov = 15.0
+size = 8.0
+near = 10.0
+far = 500.0
+
+[node name="DeliveryTruck" parent="." instance=ExtResource("1")]
+transform = Transform3D(0.552446, 0, -0.833548, 0, 1, 0, 0.833548, 0, 0.552446, 0, 0, 0)
+
+[node name="ItemReceiver" type="Area3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -7.46622, -0.16236, -9.6132)
+collision_layer = 65536
+collision_mask = 65536
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.261911, 1.38688, 0)
+shape = SubResource("6")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ItemReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.136185, 1.47411, 0.0134177)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("1")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, -1, 0)
+size = Vector3(103.166, 2, 101.61)
+material = SubResource("5")
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.735, 0.05, -5.433)
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 6.12245
+physics_material_override = SubResource("4")
+can_sleep = false
+linear_damp = 0.9
+script = ExtResource("3")
+cameraPath = NodePath("../CameraOrigin")
+feet_height = 0.09
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.06581e-14, 0, -1.06581e-14, 1, 0, 0.695319, 0)
+shape = SubResource("2")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.703999, 0)
+size = Vector3(0.566182, 1.42149, 0.477852)
+
+[node name="InteractArea" type="Area3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.304681, 0)
+collision_layer = 0
+collision_mask = 65536
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04525, 0)
+shape = SubResource("3")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8")
+
+[node name="Inventory" type="NinePatchRect" parent="GUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -224.0
+offset_right = 352.0
+offset_bottom = -16.0
+grow_vertical = 0
+texture = ExtResource("6")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Grid" type="TextureRect" parent="GUI/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7")
+stretch_mode = 2
+
+[node name="Item" type="Control" parent="GUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = -16.0
+grow_vertical = 0
+tooltip_text = "\"Package\""
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Item"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5")
+
+[node name="PackageCount" type="Label" parent="GUI/Item"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 2
+text = "x1"
+vertical_alignment = 1
+script = ExtResource("9")
+
+[node name="Label" type="Label" parent="GUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -133.0
+offset_right = 133.0
+text = "Press E to interact"
+horizontal_alignment = 1
+script = ExtResource("10")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("12_ixt3a")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("12_vohnb")
+cell_size = Vector3(4, 3.2, 4)
+cell_center_x = false
+cell_center_y = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(0, 65532, 655368, 65535, 65532, 1048576, 65535, 65531, 1048576, 1, 65532, 655366, 2, 65532, 655368, 3, 65532, 655364, 65537, 65532, 655363, 65536, 65532, 655367, 65538, 65532, 655369, 65539, 65532, 655361, 131071, 65532, 1048581, 131071, 65531, 1048579, 65532, 65532, 655361, 65531, 65532, 655361, 65530, 65532, 655361, 131068, 65532, 655365, 131067, 65532, 655365, 131066, 65532, 655365, 196604, 65532, 655365, 196603, 65532, 655365, 196602, 65532, 655365, 262140, 65532, 655365, 262139, 65532, 655365, 262138, 65532, 655365, 327676, 65532, 655365, 327675, 65532, 655365, 327674, 65532, 655365, 393212, 65532, 655365, 393211, 65532, 655365, 393210, 65532, 655365, 458748, 65532, 655365, 458747, 65532, 655365, 458746, 65532, 655365, 524284, 65532, 655365, 524283, 65532, 655365, 524282, 65532, 655365, 589820, 65532, 655365, 589819, 65532, 655365, 589818, 65532, 655365, 655356, 65532, 655365, 655355, 65532, 655365, 655354, 65532, 655365, 720892, 65532, 655365, 720891, 65532, 655365, 720890, 65532, 655365)
+}
+metadata/_editor_floor_ = Vector3(0, 10, 0)
+
+[connection signal="area_entered" from="Player/InteractArea" to="Player" method="_on_InteractArea_area_entered"]
+[connection signal="area_exited" from="Player/InteractArea" to="Player" method="_on_InteractArea_area_exited"]

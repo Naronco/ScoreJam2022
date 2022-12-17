@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://l3d20qvvbfnm"
+path="res://.godot/imported/DeliveryTruck_Collision.obj-02412373caa2b695f29b587f2f8840c8.mesh"
+
+[deps]
+
+files=["res://.godot/imported/DeliveryTruck_Collision.obj-02412373caa2b695f29b587f2f8840c8.mesh"]
+
+source_file="res://DeliveryTruck_Collision.obj"
+dest_files=["res://.godot/imported/DeliveryTruck_Collision.obj-02412373caa2b695f29b587f2f8840c8.mesh", "res://.godot/imported/DeliveryTruck_Collision.obj-02412373caa2b695f29b587f2f8840c8.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
