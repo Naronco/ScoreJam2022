@@ -23,7 +23,6 @@ Global="*res://Global.gd"
 
 window/size/viewport_width=800
 window/size/viewport_height=600
-window/dpi/allow_hidpi=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/size/width=800
@@ -89,8 +88,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-rendering_device/driver="opengl3"
-rendering_device/driver.macos="opengl3"
 environment/defaults/default_clear_color=Color(0.635294, 0.635294, 0.635294, 1)
 environment/default_environment="res://default_env.tres"
 
