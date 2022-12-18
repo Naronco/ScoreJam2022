@@ -14,7 +14,7 @@ extends VehicleBody3D
 @export var brakeForce: float = 80.0
 @export var idleBreak: float = 5.0
 @export var maxSteeringAngleFast: float = 15.0
-@export var maxSteeringAngleSlow: float = 43.0
+@export var maxSteeringAngleSlow: float = 60.0
 
 var gear = 0
 var targetGear = 0
