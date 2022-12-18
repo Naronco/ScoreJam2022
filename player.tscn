@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://bc804f87s5j06"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_mnq4v"]
+
+[sub_resource type="PhysicsMaterial" id="4"]
+rough = true
+
+[sub_resource type="CapsuleShape3D" id="2"]
+radius = 0.3
+height = 1.5
+
+[sub_resource type="SphereShape3D" id="3"]
+radius = 1.633
+
+[node name="Player" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1305, 0.05, -12.7407)
+collision_layer = 3
+collision_mask = 3
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 6.12245
+physics_material_override = SubResource("4")
+can_sleep = false
+linear_damp = 0.9
+script = ExtResource("1_mnq4v")
+cameraPath = NodePath("../CameraOrigin")
+feet_height = 0.09
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 1.06581e-14, 0, -1.06581e-14, 1, 0, 0.695319, 0)
+shape = SubResource("2")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.703999, 0)
+size = Vector3(0.566182, 1.42149, 0.477852)
+
+[node name="InteractArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.304681, 0)
+collision_layer = 0
+collision_mask = 65536
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04525, 0)
+shape = SubResource("3")
+
+[connection signal="area_entered" from="InteractArea" to="." method="_on_InteractArea_area_entered"]
+[connection signal="area_exited" from="InteractArea" to="." method="_on_InteractArea_area_exited"]
