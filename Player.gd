@@ -34,6 +34,8 @@ var previous_collision_mask = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	camera.set_target(self, zoom_regular)
+	RenderingServer.global_shader_parameter_set("in_editor", false)
+	RenderingServer.global_shader_parameter_set("player_outside", true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -123,3 +125,10 @@ func _on_InteractArea_area_exited(area):
 	num_areas -= 1
 	if num_areas == 0:
 		Global.canInteract = false
+
+
+func _on_InsideAreas_enter(body):
+	RenderingServer.global_shader_parameter_set("player_outside", false)
+
+func _on_InsideAreas_leave(body):
+	RenderingServer.global_shader_parameter_set("player_outside", true)

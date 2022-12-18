@@ -19,9 +19,12 @@ uniform vec3 uv2_offset;
 varying vec3 view_pos;
 varying vec3 world_pos;
 varying vec3 player_view;
+
 global uniform vec3 player_pos;
+global uniform bool player_outside;
 global uniform float circle_scale;
 global uniform float camera_distance;
+global uniform bool in_editor;
 
 #define camera_rotation 0.0
 //((-15.0) / 180.0 * 3.14159268)
@@ -34,9 +37,17 @@ void vertex() {
 }
 
 void fragment() {
+	float is_back_wall = max(0.0, MODEL_MATRIX[3].y * 1000.0);
+	float is_inside_wall = max(0.0, MODEL_MATRIX[3].y * -1000.0);
+	
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	if (in_editor) {
+		ALBEDO = albedo.rgb * albedo_tex.rgb + vec3(0.0, is_back_wall * 0.2, is_inside_wall * 0.3);
+	} else {
+		ALBEDO = albedo.rgb * albedo_tex.rgb;
+	}
 	float metallic_tex = dot(texture(texture_metallic,base_uv),metallic_texture_channel);
 	METALLIC = metallic_tex * metallic;
 	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
@@ -51,17 +62,37 @@ void fragment() {
 	vec3 axis1 = vec3(cosrot, 0.0, -sinrot);
 	vec3 axis2 = vec3(sinrot, 0.0, cosrot);
 	
-	vec3 world_axis1_offset = player_pos - (world_pos + 1.0 * axis1);
-	vec3 world_axis2_offset = player_pos - (world_pos + 1.0 * axis2);
+	vec3 world_axis1_offset = player_pos - (world_pos + (-2.0 + 2.0 * is_back_wall * (player_outside ? 0.0 : 1.0)) * axis1);
+	vec3 world_axis2_offset = player_pos - (world_pos + (-2.0 + 2.0 * is_back_wall * (player_outside ? 0.0 : 1.0)) * axis2);
 	
-	hole = length(view_pos.xy - player_view.xy) / (0.9 * circle_scale);
-	hole = min(hole, 1.0 - (view_pos.z + camera_distance - 1.0) / 3.0);
-	hole = max(hole, max(
-		dot(axis1, world_axis1_offset),
-		dot(axis2, world_axis2_offset)
-	) / 2.0);
-	hole = max(hole, smoothstep(1.0, 0.0, (world_pos.y - player_pos.y) * 0.5 - 0.2));
+	float ortho_fade_offset_x = 8.0 / circle_scale * (1.0 - is_inside_wall);
+	float ortho_fade_offset_z = 10.0 / circle_scale * (1.0 - is_inside_wall);
+	float ortho_fade_scale = 3.0 + 7.0 * (1.0 - is_inside_wall);
+
+	if (is_back_wall > 0.5 || in_editor) {
+		if (player_outside) {
+			hole = 0.0;
+		} else {
+			hole = 1.0;
+		}
+	} else if (is_inside_wall > 0.5 && player_outside) {
+		hole = 1.0;
+	} else {
+		//if (player_outside) {
+			hole = 0.0;
+		/*} else {
+			hole = length(view_pos.xy - player_view.xy) / (0.9 * circle_scale);
+		}*/
+		hole = max(hole, max(
+			player_pos.x - (world_pos.x - ortho_fade_offset_x),
+			player_pos.z - (world_pos.z - ortho_fade_offset_z)
+		) / ortho_fade_scale);
+		if (!player_outside) {
+			hole = min(hole, 1.0 - (view_pos.z + camera_distance - 1.0 - 5.0 * is_inside_wall) / 3.0);
+		}
+	}
 	
+	hole = max(hole, smoothstep(1.0, 0.0, (world_pos.y - player_pos.y) * 0.5 - 0.2 * circle_scale));
 	hole = clamp(hole, 0.0, 1.0);
 
 	{
