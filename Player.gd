@@ -132,3 +132,9 @@ func _on_InsideAreas_enter(body):
 
 func _on_InsideAreas_leave(body):
 	RenderingServer.global_shader_parameter_set("player_outside", true)
+
+func get_effective_position():
+	if mount == null:
+		return global_position
+	else:
+		return mount.global_position
