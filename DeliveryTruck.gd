@@ -11,9 +11,10 @@ extends VehicleBody3D
 @export var steeringSpeedPercent: float = 0.95
 @export var acceleration: float = 1300.0
 @export var reverseAcceleration: float = 1000.0
-@export var brakeForce: float = 40.0
-@export var idleBreak: float = 10.0
-@export var maxSteeringAngle: float = 25.0
+@export var brakeForce: float = 80.0
+@export var idleBreak: float = 5.0
+@export var maxSteeringAngleFast: float = 15.0
+@export var maxSteeringAngleSlow: float = 43.0
 
 var gear = 0
 var targetGear = 0
@@ -31,6 +32,9 @@ func get_mount_off_point(_player):
 	return $MountOffPoint.global_position
 
 func process_mounted(delta):
+	var maxSteeringAngle = maxSteeringAngleFast \
+		+ (maxSteeringAngleSlow - maxSteeringAngleFast) \
+		* smoothstep(1.0, 0.0, self.linear_velocity.length() / 25.0);
 	var x = (Input.get_action_strength("left") - Input.get_action_strength("right")) * deg_to_rad(maxSteeringAngle)
 	var accel = Input.get_action_strength("accelerate")
 	var back = Input.get_action_strength("reverse")
@@ -80,6 +84,9 @@ func nextGear(newGear):
 			setEngineForce(0)
 
 func setBrake(v):
+	if v != 0:
+		v *= max(0.8, self.linear_velocity.length() / 5.0)
+	
 	$WheelFL.brake = v
 	if v != 0:
 		$WheelFL.engine_force = 0

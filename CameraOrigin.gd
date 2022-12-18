@@ -29,6 +29,7 @@ func _physics_process(delta):
 	
 	$Camera3D.size = zoom
 	$Camera3D.position.y = zoom
+	RenderingServer.global_shader_parameter_set("camera_distance", zoom)
 	
 	if follow != null:
 		var target = follow.global_position

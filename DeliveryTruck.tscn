@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmmh6pklckqiy"]
+[gd_scene load_steps=11 format=3 uid="uid://dmmh6pklckqiy"]
 
 [ext_resource type="PackedScene" uid="uid://cufgffkx701er" path="res://DeliveryTruck.dae" id="1"]
 [ext_resource type="PackedScene" uid="uid://bn8gu5ynent4k" path="res://Wheel.dae" id="2"]
@@ -9,11 +9,8 @@
 [sub_resource type="ConvexPolygonShape3D" id="1"]
 points = PackedVector3Array(0.393413, 0, -1.03858, 0.393413, 0, 1.03858, 0.399741, 1.85861, 0, 0.399741, 1.81221, -0.593708, 0.399741, 1.5815, -0.78341, 0.399741, 0.553853, -1.01093, 2.89368, 0, -0.960099, 0.399741, 0.553853, 1.01073, 0.399741, 1.5815, 0.783206, 0.399741, 1.81221, 0.593504, 2.89368, 0, 0.959895, 0.797074, 1.85861, 0, 0.797074, 1.81221, -0.593708, 1.27192, 1.5815, -0.778327, 1.9635, 0.941769, -0.912724, 2.85677, 0.383367, -0.92899, 3.05003, 0.383367, 0, 3.08694, 0, 0, 1.27192, 1.5815, 0.778123, 2.85677, 0.383367, 0.928787, 1.9635, 0.941769, 0.912521, 0.797074, 1.81221, 0.593504, 1.38292, 1.5815, 0, 2.80404, 0.895735, 0, 2.71308, 0.863167, -0.613837, 2.47895, 0.795663, -0.889342, 2.71308, 0.863167, 0.613634, 2.47895, 0.795663, 0.889138)
 
-[sub_resource type="ConvexPolygonShape3D" id="2"]
-points = PackedVector3Array(-2.97494, 0.262433, -1.11543, -2.97494, 0.646048, -1.11543, -2.90722, 0.262433, -1.11543, -1.83625, 0.057697, -0.932217, -2.97494, 0.262433, 1.11543, -2.97494, 0.646048, 1.11543, -2.90722, 0.646048, -1.11543, 0.399821, 0.567551, -0.924355, 0.393214, 0.303266, -0.924355, -0.894453, 0.057697, -0.887669, -1.83625, 0.057697, 0.931998, -2.90722, 0.262433, 1.11543, -2.90722, 0.646048, 1.11543, 0.399821, 0.567551, 0.924137, 0.393214, 0.303266, 0.924137, -0.894453, 0.057697, 0.887451)
-
 [sub_resource type="BoxShape3D" id="3"]
-size = Vector3(3.28926, 1.8845, 2.23274)
+size = Vector3(3.28926, 1.75125, 2.23274)
 
 [sub_resource type="BoxShape3D" id="4"]
 size = Vector3(1.27686, 1.56652, 2)
@@ -28,20 +25,16 @@ height = 3.83957
 [node name="Node3D" type="VehicleBody3D"]
 mass = 800.0
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, 0.04, 0)
+center_of_mass = Vector3(0, 0.01, 0)
 can_sleep = false
 script = ExtResource("3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0.231202, 0)
+transform = Transform3D(1.1441e-07, 0, -1, 0, 0.811568, 0, 0.872468, 0, 1.31134e-07, 0, 0.635813, 0.110831)
 shape = SubResource("1")
 
-[node name="CollisionShape2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0.231202, 0)
-shape = SubResource("2")
-
 [node name="CollisionShape3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -1.63813e-07, 1.44924, -1.2492)
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -1.63813e-07, 1.49736, -1.2492)
 shape = SubResource("3")
 
 [node name="WheelFL" type="VehicleWheel3D" parent="."]
@@ -50,7 +43,7 @@ use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.35
 wheel_rest_length = 0.3
-wheel_friction_slip = 3.0
+wheel_friction_slip = 6.0
 suspension_stiffness = 12.0
 suspension_max_force = 12000.0
 
@@ -62,7 +55,7 @@ transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 1.02208,
 use_as_traction = true
 wheel_radius = 0.35
 wheel_rest_length = 0.3
-wheel_friction_slip = 2.5
+wheel_friction_slip = 6.0
 suspension_stiffness = 12.0
 suspension_max_force = 12000.0
 
@@ -75,7 +68,7 @@ use_as_traction = true
 use_as_steering = true
 wheel_radius = 0.35
 wheel_rest_length = 0.3
-wheel_friction_slip = 3.0
+wheel_friction_slip = 6.0
 suspension_stiffness = 12.0
 suspension_max_force = 12000.0
 
@@ -87,7 +80,7 @@ transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -1.026, 
 use_as_traction = true
 wheel_radius = 0.35
 wheel_rest_length = 0.3
-wheel_friction_slip = 2.5
+wheel_friction_slip = 6.0
 suspension_stiffness = 12.0
 suspension_max_force = 12000.0
 

@@ -23,6 +23,8 @@ var mount = null
 @onready var camera = get_node(cameraPath)
 
 var num_areas = 0
+var previous_collision_layer = 0
+var previous_collision_mask = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -85,6 +87,13 @@ func interactWith(area):
 func setMount(node):
 	mount = node
 	camera.set_target(node, zoom_mounted)
+	previous_collision_mask = collision_mask
+	previous_collision_layer = collision_layer
+	collision_mask = 0
+	collision_layer = 0
+	axis_lock_linear_x = true
+	axis_lock_linear_y = true
+	axis_lock_linear_z = true
 	visible = false
 
 func unmount():
@@ -93,7 +102,11 @@ func unmount():
 	linear_velocity = mount.linear_velocity
 	mount = null
 	camera.set_target(self, zoom_regular)
-
+	collision_mask = previous_collision_mask
+	collision_layer = previous_collision_layer
+	axis_lock_linear_x = false
+	axis_lock_linear_y = false
+	axis_lock_linear_z = false
 
 func _on_InteractArea_area_entered(area):
 	num_areas += 1

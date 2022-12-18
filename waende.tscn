@@ -1,36 +1,56 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1n1111s8e24t"]
+[gd_scene load_steps=6 format=3 uid="uid://c1n1111s8e24t"]
 
 [ext_resource type="PackedScene" uid="uid://cb16su4gq4xs" path="res://waende.dae" id="1_hikog"]
 [ext_resource type="Material" uid="uid://5vw3scaoey8a" path="res://Wall.material" id="3_37mly"]
+[ext_resource type="Material" uid="uid://bgu5e110a2ht6" path="res://WallGlass.material" id="3_aewuo"]
+[ext_resource type="Material" uid="uid://cy4l7gdtbc5jr" path="res://WallFoundation.material" id="4_bpmnm"]
+[ext_resource type="Material" uid="uid://cskibvrw10v7l" path="res://WallWood.material" id="5_ha332"]
 
 [node name="waende" instance=ExtResource("1_hikog")]
 
-[node name="Unten_03" parent="." index="0"]
+[node name="UntenTür_02" parent="." index="0"]
 surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("4_bpmnm")
 
-[node name="Oben_03" parent="." index="1"]
+[node name="Unten_Balkon" parent="." index="1"]
 surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("4_bpmnm")
 
 [node name="Unten_04" parent="." index="2"]
 surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("3_aewuo")
+surface_material_override/2 = ExtResource("4_bpmnm")
 
-[node name="Oben_04" parent="." index="3"]
+[node name="Unten_03" parent="." index="3"]
+surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("3_aewuo")
+surface_material_override/2 = ExtResource("4_bpmnm")
+
+[node name="Unten_01" parent="." index="4"]
+surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("3_aewuo")
+surface_material_override/2 = ExtResource("4_bpmnm")
+
+[node name="Oben_Plain" parent="." index="5"]
 surface_material_override/0 = ExtResource("3_37mly")
 
-[node name="Unten_Balkon" parent="." index="4"]
+[node name="Oben_Balkon" parent="." index="6"]
 surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("3_aewuo")
+surface_material_override/2 = ExtResource("5_ha332")
 
-[node name="Oben_Balkon" parent="." index="5"]
+[node name="Oben_04" parent="." index="7"]
 surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("3_aewuo")
 
-[node name="UntenTür_02" parent="." index="6"]
+[node name="Oben_03" parent="." index="8"]
 surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("3_aewuo")
 
-[node name="Oben_02" parent="." index="7"]
+[node name="Oben_02" parent="." index="9"]
 surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("3_aewuo")
 
-[node name="Unten_01" parent="." index="8"]
+[node name="Oben_01" parent="." index="10"]
 surface_material_override/0 = ExtResource("3_37mly")
-
-[node name="Oben_01" parent="." index="9"]
-surface_material_override/0 = ExtResource("3_37mly")
+surface_material_override/1 = ExtResource("3_aewuo")

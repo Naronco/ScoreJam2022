@@ -101,3 +101,7 @@ circle_scale={
 "type": "float",
 "value": 1.0
 }
+camera_distance={
+"type": "float",
+"value": 10.0
+}
