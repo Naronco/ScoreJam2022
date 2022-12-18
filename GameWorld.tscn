@@ -41,7 +41,7 @@ script = ExtResource("2")
 initialFollow = NodePath("../Player")
 
 [node name="Camera3D" type="Camera3D" parent="CameraOrigin"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 40, 0)
+transform = Transform3D(0.999999, 6.25849e-07, -4.17233e-07, 0, 0, 1, 8.9407e-08, -1, 6.55651e-07, 0, 40, -0.5)
 fov = 15.0
 size = 8.0
 near = 5.0
