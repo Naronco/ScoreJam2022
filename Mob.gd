@@ -4,57 +4,44 @@ extends RigidBody3D
 
 @onready var player = get_node(playerPath)
 
-var elapsedTime = 0.0
-var rng = RandomNumberGenerator.new()
-var nextActionTime = 0.0
 var followPlayer = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	rng.randomize()
-	nextActionTime = rng.randf_range(1.0, 5.0)
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+
+	followPlayer = true
+
+	var space_state = get_world_3d().direct_space_state
+	# use global coordinates, not local to node
+
+	var params = PhysicsRayQueryParameters3D.new()
+	params.from = global_transform.origin + Vector3.UP
+	params.to = player.global_transform.origin + Vector3.UP
+	params.exclude = [self, player]
+
+	var result = space_state.intersect_ray(params)
+	if result:
+		# there is something between player and mob, so we assume the mob can't see the player and stops following
+		followPlayer = false
+
 	var dx = player.get_effective_position().x - global_position.x
 	var dz = player.get_effective_position().z - global_position.z
 	
 	var distSq=dx*dx+dz*dz
 
-	if distSq<5*5:
-		# always follow player if he is nearby
-		do_something(0)
+	if distSq<1 or distSq>5*5:
+		# stop following player if too far away or too close by 
+		followPlayer = false
 	
 
 	if followPlayer:
 		var direction = Vector3(dx, 0, dz).normalized()*2
 
 		linear_velocity = direction
-
-	elapsedTime += delta
-	if elapsedTime >= nextActionTime:
-		# do something
-		var opt = rng.randi() % 3
-		do_something(opt)
-	
-
-
-	#global_position.x += dx * delta
-	#global_position.z += dz * delta
 	
 	pass
-
-func do_something(opt):
-	followPlayer = false
-
-	if opt == 0:
-		# follow player
-		followPlayer = true
-	else:
-		# do nothing
-		pass
-
-	nextActionTime = rng.randf_range(1.0, 5.0)
-	elapsedTime = 0.0
