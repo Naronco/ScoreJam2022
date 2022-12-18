@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://do0ck0dsidf8b"]
+[gd_scene load_steps=8 format=3 uid="uid://do0ck0dsidf8b"]
 
 [ext_resource type="Theme" uid="uid://b0i0qmtemq4qw" path="res://theme.tres" id="1_7bi6q"]
 [ext_resource type="Texture2D" uid="uid://c1hmmr68dqhtv" path="res://UIBox.png" id="2_k6mst"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bjx60g3bonoqg" path="res://Package.png" id="4_phyhh"]
 [ext_resource type="Script" path="res://PackageCount.gd" id="5_qyjkk"]
 [ext_resource type="Script" path="res://InteractLabel.gd" id="6_bg80j"]
+[ext_resource type="Script" path="res://Score.gd" id="7_0gsx2"]
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -93,3 +94,11 @@ offset_right = 133.0
 text = "Press E to interact"
 horizontal_alignment = 1
 script = ExtResource("6_bg80j")
+
+[node name="Score" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 194.0
+offset_bottom = 44.0
+text = "Score: 0"
+script = ExtResource("7_0gsx2")

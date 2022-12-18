@@ -12,6 +12,7 @@ extends RigidBody3D
 var mount = null
 
 @export var cameraPath: NodePath
+@export var boxReceiverContainer: NodePath
 @export var movementForce: float = 100.0
 @export var airMovementForce: float = 30.0
 @export var packetMovementPenalty: float = 3.0
@@ -30,6 +31,10 @@ var mount = null
 var num_areas = 0
 var previous_collision_layer = 0
 var previous_collision_mask = 0
+
+var visible_boxes = 0
+
+var current_goal = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -74,6 +79,35 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			if on_ground:
 				apply_impulse(Vector3(0, jump_force, 0), Vector3(0, 1, 0))
+
+func _process(delta):
+	if visible_boxes != Global.equippedPackages:
+		while visible_boxes > Global.equippedPackages:
+			get_holding_box(visible_boxes - 1).visible = false
+			visible_boxes -= 1
+
+		while visible_boxes < Global.equippedPackages:
+			get_holding_box(visible_boxes).visible = true
+			get_holding_box(visible_boxes).rotation.y = randf() * deg_to_rad(360)
+			visible_boxes += 1
+
+		highlight_goal()
+
+func get_holding_box(i):
+	return $CarriedBoxes.get_child(i)
+
+func highlight_goal():
+	if visible_boxes == 0:
+		$PacketCompass.clear_goal()
+		return
+	
+	var boxes = get_node(boxReceiverContainer)
+	if boxes.get_child(current_goal).needs_packet():
+		return
+
+	var next_goal = boxes.get_child(randi_range(0, boxes.get_child_count() - 1))
+	next_goal.set_goal()
+	$PacketCompass.set_goal(next_goal)
 
 func interact():
 	var interacts = $InteractArea.get_overlapping_areas()

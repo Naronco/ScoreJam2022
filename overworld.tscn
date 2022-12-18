@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbmfoywaini40"]
+[gd_scene load_steps=7 format=3 uid="uid://cbmfoywaini40"]
 
 [ext_resource type="Texture2D" uid="uid://dljm4um4spkw5" path="res://BrickTexture.png" id="1_k2oy1"]
 [ext_resource type="MeshLibrary" uid="uid://cjrdo7u2jyufq" path="res://Waende.tres" id="1_si0es"]
 [ext_resource type="Script" path="res://Grid_Roofs.gd" id="3_adkcw"]
+[ext_resource type="Script" path="res://ItemEquipable.gd" id="4_w6u5j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wra52"]
 albedo_texture = ExtResource("1_k2oy1")
@@ -10,7 +11,7 @@ uv1_scale = Vector3(24, 24, 24)
 texture_filter = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_31ja4"]
-size = Vector3(1.17229, 2.23182, 1.88334)
+size = Vector3(3, 2, 3)
 
 [node name="Overworld" type="Node3D"]
 
@@ -133,14 +134,17 @@ transform = Transform3D(0.939692, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 0.999
 use_collision = true
 size = Vector3(3, 1, 3)
 
-[node name="ItemReceiver" type="Area3D" parent="."]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -12.4662, -0.16236, -13.6132)
+[node name="Markers" type="Node3D" parent="."]
+
+[node name="ItemReceiver" type="Area3D" parent="Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, 0, -5.5)
 collision_layer = 65536
 collision_mask = 65536
+script = ExtResource("4_w6u5j")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemReceiver"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.261911, 1.38688, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Markers/ItemReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_31ja4")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="ItemReceiver"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.136185, 1.47411, 0.0134177)
+[node name="CSGBox3D" type="CSGBox3D" parent="Markers/ItemReceiver"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
