@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk02brlc2makj"]
+
+[ext_resource type="Script" path="res://Mob.gd" id="1_8nm1i"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pxj7f"]
+radius = 0.4
+height = 1.4
+
+[node name="Mob" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_8nm1i")
+playerPath = NodePath("../Player")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+radius = 0.354
+height = 1.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("CapsuleShape3D_pxj7f")
