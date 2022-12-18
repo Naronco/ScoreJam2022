@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b1lpjmmgbed8y"]
+[gd_scene load_steps=15 format=3 uid="uid://b1lpjmmgbed8y"]
 
 [ext_resource type="PackedScene" uid="uid://dmmh6pklckqiy" path="res://DeliveryTruck.tscn" id="1"]
 [ext_resource type="Script" path="res://CameraOrigin.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://bc804f87s5j06" path="res://player.tscn" id="4_fo51s"]
 [ext_resource type="PackedScene" uid="uid://do0ck0dsidf8b" path="res://gui.tscn" id="5_wmv0a"]
+[ext_resource type="PackedScene" uid="uid://c2r6dq30qb0tu" path="res://Bullet.tscn" id="8_d7kmo"]
 [ext_resource type="Environment" uid="uid://eklt5i3g1r3s" path="res://default_env.tres" id="12_ixt3a"]
 [ext_resource type="PackedScene" uid="uid://cbmfoywaini40" path="res://overworld.tscn" id="12_t3mrl"]
 [ext_resource type="PackedScene" uid="uid://bk02brlc2makj" path="res://Mob.tscn" id="13_ykp70"]
@@ -113,6 +114,8 @@ shape = SubResource("BoxShape3D_ew3v5")
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 28)
 shape = SubResource("BoxShape3D_ew3v5")
+
+[node name="Bullet" parent="." instance=ExtResource("8_d7kmo")]
 
 [connection signal="body_entered" from="InsideAreas" to="Player" method="_on_InsideAreas_enter"]
 [connection signal="body_exited" from="InsideAreas" to="Player" method="_on_InsideAreas_leave"]

@@ -4,12 +4,17 @@ extends RigidBody3D
 
 @onready var player = get_node(playerPath)
 
+var bullet = preload("res://Bullet.tscn")
+
 var followPlayer = false
 
 
+var shootTimer = 0.0
+var shootCooldown = 0.1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	shootTimer = shootCooldown
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -31,17 +36,30 @@ func _process(delta):
 
 	var dx = player.get_effective_position().x - global_position.x
 	var dz = player.get_effective_position().z - global_position.z
+
+	var playerDir = Vector3(dx, 0, dz).normalized()
 	
 	var distSq=dx*dx+dz*dz
 
-	if distSq<1 or distSq>5*5:
+	if distSq>10*10:
 		# stop following player if too far away or too close by 
 		followPlayer = false
 	
 
-	if followPlayer:
-		var direction = Vector3(dx, 0, dz).normalized()*2
-
-		linear_velocity = direction
+	if followPlayer and distSq>1:
+		linear_velocity = playerDir*2.0
 	
+	# shoot?
+	if followPlayer:
+		shootTimer -= delta
+		
+		if shootTimer < 0.0:
+			var inst = bullet.instantiate()
+			get_parent().add_child(inst)
+
+			inst.global_position = global_position + Vector3(0, 1.2, 0) + playerDir*0.8
+			inst.linear_velocity = playerDir*25.0
+
+			shootTimer = shootCooldown
+
 	pass
