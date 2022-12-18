@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1lpjmmgbed8y"]
+[gd_scene load_steps=20 format=3 uid="uid://b1lpjmmgbed8y"]
 
 [ext_resource type="PackedScene" uid="uid://dmmh6pklckqiy" path="res://DeliveryTruck.tscn" id="1"]
 [ext_resource type="Script" path="res://CameraOrigin.gd" id="2"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://InteractLabel.gd" id="10"]
 [ext_resource type="Environment" uid="uid://eklt5i3g1r3s" path="res://default_env.tres" id="12_ixt3a"]
 [ext_resource type="MeshLibrary" uid="uid://cjrdo7u2jyufq" path="res://Waende.tres" id="12_vohnb"]
+[ext_resource type="Script" path="res://Mob.gd" id="13_n1egs"]
 
 [sub_resource type="BoxShape3D" id="6"]
 size = Vector3(1.17229, 2.23182, 1.88334)
@@ -30,6 +31,9 @@ height = 1.5
 
 [sub_resource type="SphereShape3D" id="3"]
 radius = 1.633
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_osh2p"]
+sample_partition_type = 2
 
 [node name="Node3D" type="Node3D"]
 
@@ -278,6 +282,20 @@ size = Vector3(3, 1, 3)
 transform = Transform3D(0.939692, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 0.999999, -7.83195, 1.4578, -0.107674)
 use_collision = true
 size = Vector3(3, 1, 3)
+
+[node name="Mob" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.77421, 0, 0)
+script = ExtResource("13_n1egs")
+playerPath = NodePath("../Player")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Mob"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+radius = 0.354
+height = 1.4
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.6215)
+navmesh = SubResource("NavigationMesh_osh2p")
 
 [connection signal="area_entered" from="Player/InteractArea" to="Player" method="_on_InteractArea_area_entered"]
 [connection signal="area_exited" from="Player/InteractArea" to="Player" method="_on_InteractArea_area_exited"]
