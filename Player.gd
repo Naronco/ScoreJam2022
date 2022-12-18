@@ -13,9 +13,14 @@ var mount = null
 
 @export var cameraPath: NodePath
 @export var movementForce: float = 100.0
+@export var airMovementForce: float = 30.0
 @export var packetMovementPenalty: float = 3.0
 @export var jump_force: float = 30.0
 @export var feet_height: float = 0
+
+@export var walljump_scan_length: float = 0.8
+@export var walljump_up_force: float = 60.0
+@export var walljump_force: float = 30.0
 
 @export var zoom_regular: float = 25
 @export var zoom_mounted: float = 70
@@ -46,24 +51,26 @@ func _physics_process(delta):
 		RenderingServer.global_shader_parameter_set("circle_scale", 2.5)
 	else:
 		var x = Input.get_action_strength("right") - Input.get_action_strength("left")
-		var y = Input.get_action_strength("forward") - Input.get_action_strength("backward")
+		var y = Input.get_action_strength("backward") - Input.get_action_strength("forward")
+
+		var space_state = get_world_3d().direct_space_state
+		var pos = global_position
+		var query = PhysicsRayQueryParameters3D.create(pos, pos - Vector3(0, feet_height, 0))
+		var on_ground = space_state.intersect_ray(query) != {}
+
 		var force = movementForce
+		if !on_ground:
+			force = airMovementForce
 		force -= packetMovementPenalty * Global.equippedPackages
-		var direction = Vector3(x, 0, -y).normalized() * delta * force
+		var direction = Vector3(x, 0, y).normalized() * delta * force
 		direction = direction.rotated(Vector3(0, 1, 0), camera.global_rotation.y);
 		apply_impulse(direction, Vector3(0, 1, 0))
 
 		RenderingServer.global_shader_parameter_set("player_pos", global_position)
 		RenderingServer.global_shader_parameter_set("circle_scale", 1.0)
 
-	if Input.is_action_just_pressed("jump"):
-		if mount == null:
-			var space_state = get_world_3d().direct_space_state
-			var pos = global_position
-			var query = PhysicsRayQueryParameters3D.create(pos, pos - Vector3(0, feet_height, 0))
-			var result = space_state.intersect_ray(query)
-			print(result)
-			if result:
+		if Input.is_action_just_pressed("jump"):
+			if on_ground:
 				apply_impulse(Vector3(0, jump_force, 0), Vector3(0, 1, 0))
 
 func interact():
