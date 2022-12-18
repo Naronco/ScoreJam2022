@@ -23,6 +23,9 @@ global uniform vec3 player_pos;
 global uniform float circle_scale;
 global uniform float camera_distance;
 
+#define camera_rotation 0.0
+//((-15.0) / 180.0 * 3.14159268)
+
 void vertex() {
 	UV=UV*uv1_scale.xy+uv1_offset.xy;
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
@@ -41,23 +44,25 @@ void fragment() {
 	ROUGHNESS = roughness_tex * roughness;
 	SPECULAR = specular;
 	
-	bool outside = false;
-	
 	float hole;
-	if (outside)
-	{
-		hole = smoothstep(1.0, 0.0, (world_pos.y - player_pos.y) * 0.5 - 0.2);
-	}
-	else
-	{
-		hole = length(view_pos.xy - player_view.xy) / (0.9 * circle_scale);
-		hole = min(hole, 1.0 - (view_pos.z + camera_distance - 1.0) / 3.0);
-		hole = max(hole, max(
-			player_pos.x - (world_pos.x - 2.0),
-			player_pos.z - (world_pos.z - 2.0)
-		) / 2.0);
-		hole = max(hole, smoothstep(1.0, 0.0, (world_pos.y - player_pos.y) * 0.5 - 0.2));
-	}
+	float sinrot = sin(camera_rotation);
+	float cosrot = cos(camera_rotation);
+	
+	vec3 axis1 = vec3(cosrot, 0.0, -sinrot);
+	vec3 axis2 = vec3(sinrot, 0.0, cosrot);
+	
+	vec3 world_axis1_offset = player_pos - (world_pos + 1.0 * axis1);
+	vec3 world_axis2_offset = player_pos - (world_pos + 1.0 * axis2);
+	
+	hole = length(view_pos.xy - player_view.xy) / (0.9 * circle_scale);
+	hole = min(hole, 1.0 - (view_pos.z + camera_distance - 1.0) / 3.0);
+	hole = max(hole, max(
+		dot(axis1, world_axis1_offset),
+		dot(axis2, world_axis2_offset)
+	) / 2.0);
+	hole = max(hole, smoothstep(1.0, 0.0, (world_pos.y - player_pos.y) * 0.5 - 0.2));
+	
+	hole = clamp(hole, 0.0, 1.0);
 
 	{
 		const vec3 magic = vec3(0.06711056f, 0.00583715f, 52.9829189f);	
