@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://CameraOrigin.gd" id="1_mrcp2"]
 
 [node name="CameraOrigin" type="Node3D"]
-transform = Transform3D(0.866026, 0.408069, 0.288929, 0, 0.577858, -0.816138, -0.5, 0.706796, 0.500439, 4.09245, 0, -12.8763)
+transform = Transform3D(0.866026, 0.408069, 0.288929, 0, 0.577858, -0.816138, -0.5, 0.706796, 0.500439, 0, 0, 0)
 script = ExtResource("1_mrcp2")
 initialFollow = NodePath("../Player")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 70, -0.224)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 70, 0)
 fov = 15.0
 size = 8.0
 near = 5.0

@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1lpjmmgbed8y"]
+[gd_scene load_steps=14 format=3 uid="uid://b1lpjmmgbed8y"]
 
 [ext_resource type="PackedScene" uid="uid://dmmh6pklckqiy" path="res://DeliveryTruck.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://cb1tmrl3lhpjg" path="res://FollowCamera.tscn" id="1_3c4ww"]
+[ext_resource type="Script" path="res://CameraOrigin.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://bc804f87s5j06" path="res://player.tscn" id="4_fo51s"]
 [ext_resource type="PackedScene" uid="uid://do0ck0dsidf8b" path="res://gui.tscn" id="5_wmv0a"]
 [ext_resource type="Environment" uid="uid://eklt5i3g1r3s" path="res://default_env.tres" id="12_ixt3a"]
@@ -11,17 +11,45 @@
 [sub_resource type="NavigationMesh" id="NavigationMesh_osh2p"]
 sample_partition_type = 2
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2dn2a"]
+size = Vector3(16, 10, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eixug"]
+size = Vector3(8, 10, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ahd0j"]
+size = Vector3(8, 10, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pcjjy"]
+size = Vector3(20, 10, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ew3v5"]
+size = Vector3(12, 10, 8)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("12_ixt3a")
 
-[node name="CameraOrigin" parent="." instance=ExtResource("1_3c4ww")]
+[node name="Player" parent="." instance=ExtResource("4_fo51s")]
+process_priority = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -8)
+
+[node name="CameraOrigin" type="Node3D" parent="."]
+transform = Transform3D(0.866026, 0.408069, 0.288929, 0, 0.577858, -0.816138, -0.5, 0.706796, 0.500439, -9, 0, -8)
+script = ExtResource("2")
+initialFollow = NodePath("../Player")
+
+[node name="Camera3D" type="Camera3D" parent="CameraOrigin"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 40, 0)
+fov = 15.0
+size = 8.0
+near = 5.0
+far = 500.0
 
 [node name="DeliveryTruck" parent="." instance=ExtResource("1")]
+process_priority = 1
 transform = Transform3D(0.998097, 0, 0.0616583, 0, 1, 0, -0.0616583, 0, 0.998097, -11.8023, 0, -9.12512)
-
-[node name="Player" parent="." instance=ExtResource("4_fo51s")]
 
 [node name="GUI" parent="." instance=ExtResource("5_wmv0a")]
 
@@ -33,3 +61,58 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.37174, 0, -8.60429)
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.6215)
 navmesh = SubResource("NavigationMesh_osh2p")
+
+[node name="InsideAreas" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5, -24)
+shape = SubResource("BoxShape3D_2dn2a")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, -20)
+shape = SubResource("BoxShape3D_eixug")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 5, -10)
+shape = SubResource("BoxShape3D_ahd0j")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 4)
+shape = SubResource("BoxShape3D_pcjjy")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 28)
+shape = SubResource("BoxShape3D_ew3v5")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 5, 50)
+shape = SubResource("BoxShape3D_ew3v5")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 5, 50)
+shape = SubResource("BoxShape3D_ew3v5")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 5, 50)
+shape = SubResource("BoxShape3D_ew3v5")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 5, 74)
+shape = SubResource("BoxShape3D_ew3v5")
+
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 5, 74)
+shape = SubResource("BoxShape3D_ew3v5")
+
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 5, 74)
+shape = SubResource("BoxShape3D_ew3v5")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="InsideAreas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 28)
+shape = SubResource("BoxShape3D_ew3v5")
+
+[connection signal="body_entered" from="InsideAreas" to="Player" method="_on_InsideAreas_enter"]
+[connection signal="body_exited" from="InsideAreas" to="Player" method="_on_InsideAreas_leave"]

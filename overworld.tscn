@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbmfoywaini40"]
+[gd_scene load_steps=5 format=3 uid="uid://cbmfoywaini40"]
 
 [ext_resource type="Texture2D" uid="uid://dljm4um4spkw5" path="res://BrickTexture.png" id="1_k2oy1"]
 [ext_resource type="MeshLibrary" uid="uid://cjrdo7u2jyufq" path="res://Waende.tres" id="1_si0es"]
@@ -7,21 +7,6 @@
 albedo_texture = ExtResource("1_k2oy1")
 uv1_scale = Vector3(24, 24, 24)
 texture_filter = 4
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xxluv"]
-size = Vector3(16, 10, 16)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_swf1o"]
-size = Vector3(8, 10, 8)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_qcics"]
-size = Vector3(8, 10, 12)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_b62nv"]
-size = Vector3(20, 10, 16)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0nkte"]
-size = Vector3(12, 10, 8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_31ja4"]
 size = Vector3(1.17229, 2.23182, 1.88334)
@@ -69,6 +54,7 @@ data = {
 }
 
 [node name="Grid_Roofs" type="GridMap" parent="."]
+visible = false
 mesh_library = ExtResource("1_si0es")
 cell_size = Vector3(4, 3.2, 4)
 cell_center_x = false
@@ -144,58 +130,6 @@ size = Vector3(3, 1, 3)
 transform = Transform3D(0.939692, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 0.999999, -7.83195, 1.4578, -0.107674)
 use_collision = true
 size = Vector3(3, 1, 3)
-
-[node name="InsideAreas" type="Area3D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5, -24)
-shape = SubResource("BoxShape3D_xxluv")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, -20)
-shape = SubResource("BoxShape3D_swf1o")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 5, -10)
-shape = SubResource("BoxShape3D_qcics")
-
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 4)
-shape = SubResource("BoxShape3D_b62nv")
-
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 28)
-shape = SubResource("BoxShape3D_0nkte")
-
-[node name="CollisionShape3D7" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 5, 50)
-shape = SubResource("BoxShape3D_0nkte")
-
-[node name="CollisionShape3D8" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 5, 50)
-shape = SubResource("BoxShape3D_0nkte")
-
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 5, 50)
-shape = SubResource("BoxShape3D_0nkte")
-
-[node name="CollisionShape3D10" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 5, 74)
-shape = SubResource("BoxShape3D_0nkte")
-
-[node name="CollisionShape3D11" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 5, 74)
-shape = SubResource("BoxShape3D_0nkte")
-
-[node name="CollisionShape3D12" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 5, 74)
-shape = SubResource("BoxShape3D_0nkte")
-
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="InsideAreas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 28)
-shape = SubResource("BoxShape3D_0nkte")
 
 [node name="ItemReceiver" type="Area3D" parent="."]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -12.4662, -0.16236, -13.6132)
