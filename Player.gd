@@ -117,6 +117,7 @@ func aim(rot, strength):
 func unaim():
 	$StrengthCompass.visible = false
 	$Trajectory.visible = false
+	camera.fade_zoom(zoom_regular)
 	if visible_boxes > 0:
 		var strength = $StrengthCompass/Indicator.scale.x
 		var rot = $StrengthCompass.global_rotation.y
@@ -142,6 +143,8 @@ func unaim():
 			
 			box.global_position = $CarriedBoxes.global_position
 			box.linear_velocity = (baseThrowVector * strength).rotated(Vector3(0, 1, 0), rot + PI)
+			box.contact_monitor = true
+			box.connect("body_entered", stop_throw_sound)
 
 			get_parent().add_child(box)
 			Global.dropPackage()
@@ -192,6 +195,9 @@ func highlight_goal():
 func goal_scored():
 	highlight_goal()
 	$PackageIn.play()
+	$ThrowSound.stop()
+
+func stop_throw_sound():
 	$ThrowSound.stop()
 
 func interact():

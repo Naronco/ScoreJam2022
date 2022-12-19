@@ -41,3 +41,6 @@ func _physics_process(delta):
 func set_target(target, zoom):
 	follow = target
 	targetZoom = zoom
+
+func fade_zoom(zoom):
+	targetZoom = zoom
