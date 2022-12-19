@@ -1,6 +1,6 @@
 extends Control
 
-const MainMenu = preload("res://Menu/Menu.tscn")
+const MainMenu = preload("res://Menu/MainMenu.tscn")
 
 func _ready():
 	pass

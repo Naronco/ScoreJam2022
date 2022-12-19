@@ -24,8 +24,8 @@ var mount = null
 @export var walljump_up_force: float = 60.0
 @export var walljump_force: float = 30.0
 
-@export var zoom_regular: float = 25
-@export var zoom_max_aim: float = 50
+@export var zoom_regular: float = 30
+@export var zoom_max_aim: float = 90
 @export var zoom_mounted: float = 70
 
 @export var baseThrowVector: Vector3 = Vector3(2.0, 4.0, 0.0)
@@ -47,6 +47,9 @@ func _ready():
 	camera.set_target(self, zoom_regular)
 	RenderingServer.global_shader_parameter_set("in_editor", false)
 	RenderingServer.global_shader_parameter_set("player_outside", true)
+	
+	for receiver in get_node(boxReceiverContainer).get_children():
+		receiver.connect("scored", goal_scored)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -102,13 +105,18 @@ func _process(delta):
 func aim(rot, strength):
 	strength = min(strength, 6.0)
 	if visible_boxes > 0:
-		$StrengthCompass.visible = true
+		$Trajectory.visible = true
+		$Trajectory.global_rotation.y = rot + PI * 0.5
+		var trs = strength * strength / 1.4
+		$Trajectory.scale = Vector3(trs, trs, trs)
 		$StrengthCompass.global_rotation.y = rot
+		$StrengthCompass.visible = true
 		$StrengthCompass/Indicator.scale = Vector3(strength, strength, 1.0)
-		camera.set_target(self, zoom_regular + (zoom_max_aim - zoom_regular) * (strength / 6.0))
+		camera.set_target(self, zoom_regular + (zoom_max_aim - zoom_regular) * pow(strength / 6.0, 0.5))
 
 func unaim():
 	$StrengthCompass.visible = false
+	$Trajectory.visible = false
 	if visible_boxes > 0:
 		var strength = $StrengthCompass/Indicator.scale.x
 		var rot = $StrengthCompass.global_rotation.y
@@ -180,6 +188,9 @@ func highlight_goal():
 	current_goal = boxes.get_child(randi_range(0, boxes.get_child_count() - 1))
 	current_goal.set_goal()
 	$PacketCompass.set_goal(current_goal)
+
+func goal_scored():
+	highlight_goal()
 
 func interact():
 	var interacts = $InteractArea.get_overlapping_areas()

@@ -1,6 +1,6 @@
 extends Control
 
-const MainMenu = preload("res://Menu/Menu.tscn")
+const MainMenu = preload("res://Menu/MainMenu.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
