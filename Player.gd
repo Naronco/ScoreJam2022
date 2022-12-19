@@ -28,6 +28,8 @@ var mount = null
 @export var zoom_max_aim: float = 50
 @export var zoom_mounted: float = 70
 
+@export var baseThrowVector: Vector3 = Vector3(2.0, 4.0, 0.0)
+
 @onready var camera = get_node(cameraPath)
 
 var num_areas = 0
@@ -128,17 +130,22 @@ func unaim():
 			
 			box.collision_layer = 0b11000;
 			box.collision_mask = 0b11000;
+			box.mass = 1;
 			
 			box.global_position = $CarriedBoxes.global_position
-			box.linear_velocity = (Vector3(1.0, 2.0, 0.0) * strength).rotated(Vector3(0, 1, 0), rot + PI)
+			box.linear_velocity = (baseThrowVector * strength).rotated(Vector3(0, 1, 0), rot + PI)
 
 			get_parent().add_child(box)
 			Global.dropPackage()
 			
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(1.0 / strength).timeout
 			
 			box.collision_layer = 0b11001;
 			box.collision_mask = 0b11001;
+			
+			var bodiesInRange = $PickupArea.get_overlapping_bodies()
+			for body in bodiesInRange:
+				_on_PickupArea_body_entered(body)
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -165,6 +172,7 @@ func highlight_goal():
 	
 	var boxes = get_node(boxReceiverContainer)
 	if current_goal != null && current_goal.needs_packet():
+		$PacketCompass.set_goal(current_goal)
 		return
 
 	current_goal = boxes.get_child(randi_range(0, boxes.get_child_count() - 1))

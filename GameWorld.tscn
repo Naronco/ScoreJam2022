@@ -57,7 +57,7 @@ far = 500.0
 
 [node name="DeliveryTruck" parent="." instance=ExtResource("1")]
 process_priority = 1
-transform = Transform3D(0.998097, 0, 0.0616583, 0, 1, 0, -0.0616583, 0, 0.998097, -11.8023, 0, -9.12512)
+transform = Transform3D(-0.0453457, 0, 0.998971, 0, 1, 0, -0.998971, 0, -0.0453457, -19.8923, 0, -0.476212)
 
 [node name="GUI" parent="." instance=ExtResource("5_wmv0a")]
 
