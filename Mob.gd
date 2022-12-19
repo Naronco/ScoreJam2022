@@ -12,9 +12,13 @@ var followPlayer = false
 var shootTimer = 0.0
 var shootCooldown = 0.1
 
+var spawnPos
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	shootTimer = shootCooldown
+
+	spawnPos = global_position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -41,12 +45,18 @@ func _process(delta):
 	
 	var distSq=dx*dx+dz*dz
 
+	var dxSpawn = spawnPos.x - global_position.x
+	var dzSpawn = spawnPos.z - global_position.z
+
+	var distSpawnSq=dxSpawn*dxSpawn+dzSpawn*dzSpawn
+
 	if distSq>10*10:
-		# stop following player if too far away or too close by 
+		# stop following player if he is too far away 
 		followPlayer = false
 	
+	var dot = dxSpawn*dx+dzSpawn*dz
 
-	if followPlayer and distSq>1:
+	if followPlayer and distSq>1 and (distSpawnSq<10*10 or dot>0.0):
 		linear_velocity = playerDir*2.0
 	
 	# shoot?
