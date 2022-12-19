@@ -10,7 +10,7 @@ var followPlayer = false
 
 
 var shootTimer = 0.0
-var shootCooldown = 0.1
+var shootCooldown = 0.5
 
 var spawnPos
 
@@ -25,18 +25,21 @@ func _process(delta):
 
 	followPlayer = true
 
-	var space_state = get_world_3d().direct_space_state
-	# use global coordinates, not local to node
+	if player.mount == null:
+		# check if mob can see the player
 
-	var params = PhysicsRayQueryParameters3D.new()
-	params.from = global_transform.origin + Vector3.UP
-	params.to = player.global_transform.origin + Vector3.UP
-	params.exclude = [self, player]
+		var space_state = get_world_3d().direct_space_state
+		# use global coordinates, not local to node
 
-	var result = space_state.intersect_ray(params)
-	if result:
-		# there is something between player and mob, so we assume the mob can't see the player and stops following
-		followPlayer = false
+		var params = PhysicsRayQueryParameters3D.new()
+		params.from = global_transform.origin + Vector3.UP
+		params.to = player.global_transform.origin + Vector3.UP
+		params.exclude = [self, player]
+
+		var result = space_state.intersect_ray(params)
+		if result:
+			# there is something between player and mob, so we assume the mob can't see the player and stops following
+			followPlayer = false
 
 	var dx = player.get_effective_position().x - global_position.x
 	var dz = player.get_effective_position().z - global_position.z
