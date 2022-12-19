@@ -172,6 +172,8 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_mv3h6")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_edj7l"]
+render_priority = 1
+no_depth_test = true
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 3.0
@@ -292,8 +294,10 @@ feet_height = 0.09
 transform = Transform3D(1, 0, 0, 0, 1, 1.06581e-14, 0, -1.06581e-14, 1, 0, 0.695319, 0)
 shape = SubResource("2")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="Visible" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.703999, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Visible"]
 size = Vector3(0.566182, 1.42149, 0.477852)
 
 [node name="PickupArea" type="Area3D" parent="."]

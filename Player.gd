@@ -62,9 +62,9 @@ func _physics_process(delta):
 		return
 
 	if mount != null:
+		global_position = mount.global_position
 		mount.process_mounted(delta)
 		RenderingServer.global_shader_parameter_set("player_pos", mount.global_position)
-		RenderingServer.global_shader_parameter_set("circle_scale", 2.5)
 	else:
 		var x = Input.get_action_strength("right") - Input.get_action_strength("left")
 		var y = Input.get_action_strength("backward") - Input.get_action_strength("forward")
@@ -112,12 +112,18 @@ func aim(rot, strength):
 		$StrengthCompass.global_rotation.y = rot
 		$StrengthCompass.visible = true
 		$StrengthCompass/Indicator.scale = Vector3(strength, strength, 1.0)
-		camera.set_target(self, zoom_regular + (zoom_max_aim - zoom_regular) * pow(strength / 6.0, 0.5))
+		RenderingServer.global_shader_parameter_set("circle_scale", 1.0)
+		#camera.fade_zoom(zoom_regular + (zoom_max_aim - zoom_regular) * pow(strength / 6.0, 0.5))
 
 func unaim():
 	$StrengthCompass.visible = false
 	$Trajectory.visible = false
-	camera.fade_zoom(zoom_regular)
+	#camera.fade_zoom(zoom_regular)
+	if mount != null:
+		RenderingServer.global_shader_parameter_set("circle_scale", 2.5)
+	else:
+		RenderingServer.global_shader_parameter_set("circle_scale", 1.0)
+	
 	if visible_boxes > 0:
 		var strength = $StrengthCompass/Indicator.scale.x
 		var rot = $StrengthCompass.global_rotation.y
@@ -147,7 +153,9 @@ func unaim():
 			box.connect("body_entered", stop_throw_sound)
 
 			get_parent().add_child(box)
-			Global.dropPackage()
+
+			if mount == null:
+				Global.dropPackage()
 			
 			await get_tree().create_timer(1.0 / strength).timeout
 			
@@ -217,6 +225,7 @@ func interactWith(area):
 	area.interact(self)
 
 func setMount(node):
+	RenderingServer.global_shader_parameter_set("circle_scale", 2.5)
 	mount = node
 	camera.set_target(node, zoom_mounted)
 	previous_collision_mask = collision_mask
@@ -226,10 +235,13 @@ func setMount(node):
 	axis_lock_linear_x = true
 	axis_lock_linear_y = true
 	axis_lock_linear_z = true
-	visible = false
+	$Visible.visible = false
+	$PacketCompass.scale = Vector3(3, 3, 3)
+	$PacketCompass/CSGBox3D.position = Vector3(5.0, 0.058, 0.0)
+	$StrengthCompass.scale = Vector3(8, 8, 8)
 
 func unmount():
-	visible = true
+	$Visible.visible = true
 	global_position = mount.get_mount_off_point(self)
 	linear_velocity = mount.linear_velocity
 	mount = null
@@ -239,6 +251,9 @@ func unmount():
 	axis_lock_linear_x = false
 	axis_lock_linear_y = false
 	axis_lock_linear_z = false
+	$PacketCompass.scale = Vector3(1, 1, 1)
+	$PacketCompass/CSGBox3D.position = Vector3(1.0, 0.058, 0.0)
+	$StrengthCompass.scale = Vector3(1, 1, 1)
 
 func _on_InteractArea_area_entered(area):
 	num_areas += 1
