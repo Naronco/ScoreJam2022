@@ -33,8 +33,9 @@ func _closed(was_clean = false):
 
 func reconnect():
 	# Initiate connection to the given URL.
-	_client.handshake_headers = ["Authorization: Bearer YgzU1c0LvJxOj4LtdCeX"]
-	# _client.supported_protocols = ["scoreboard-v1"]
+	if Global.authToken != "":
+		_client.handshake_headers = ["Authorization: Bearer " + Global.authToken]
+	#_client.supported_protocols = ["scoreboard-v1"]
 	var err = _client.connect_to_url(scoreboard_url)
 	if err != OK:
 		print("Unable to connect")
@@ -67,6 +68,8 @@ func send_json(data):
 
 func _process(delta):
 	_client.poll()
+	
+	update_local_score(virtual_scoreboard[-1])
 
 	var state = _client.get_ready_state()
 	if state == WebSocketPeer.STATE_OPEN:
@@ -77,7 +80,6 @@ func _process(delta):
 		if put_timeout <= 0.0:
 			if submitted_score != Global.score:
 				process_put()
-				update_local_score(virtual_scoreboard[-1])
 				put_timeout = 0.3
 			else:
 				put_timeout = 0.05
@@ -168,10 +170,11 @@ func update_local_score(ventry):
 			and Global.score >= virtual_scoreboard[self_online_score].score:
 		hide_score(virtual_scoreboard[self_online_score])
 		virtual_scoreboard[self_online_score].overriden_by_local = true
-		sort_scores()
 
-	ventry.username = "LocalUser"
+	ventry.username = Global.username
 	ventry.score = Global.score
+	
+	sort_scores()
 
 func create_score(score, state):
 	if score["author"]["id"] == self_user_id and score["score"] <= Global.score:

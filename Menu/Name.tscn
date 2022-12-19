@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dspf2fl83hrca"]
+[gd_scene load_steps=4 format=3 uid="uid://dspf2fl83hrca"]
 
+[ext_resource type="Script" path="res://Menu/NameEntry.gd" id="1_pmkay"]
 [ext_resource type="Texture2D" uid="uid://b8fvd1kce6b7c" path="res://Menu/bglogin.png" id="1_u45ep"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_d3wyo"]
@@ -11,10 +12,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pmkay")
 
 [node name="BgName" type="NinePatchRect" parent="."]
 texture_filter = 1
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -33,7 +34,6 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 
 [node name="NameLabel" type="Label" parent="BgName"]
-layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -46,7 +46,6 @@ text = "What is your Name?"
 label_settings = SubResource("LabelSettings_d3wyo")
 
 [node name="NameBox" type="LineEdit" parent="BgName"]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -60,7 +59,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Button" type="Button" parent="BgName"]
-layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -73,3 +71,6 @@ offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Submit"
+
+[connection signal="text_submitted" from="BgName/NameBox" to="." method="_on_name_box_text_submitted"]
+[connection signal="pressed" from="BgName/Button" to="." method="_onSubmit"]
