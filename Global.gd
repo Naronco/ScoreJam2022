@@ -4,7 +4,7 @@ extends Node
 @export var canInteract: bool = 0 : set = setCanInteract
 @export var score: int = 0
 
-@export var username: String = ""
+@export var username: String = "Anonymous"
 @export var authToken: String = ""
 @export var userId: int = -1
 
