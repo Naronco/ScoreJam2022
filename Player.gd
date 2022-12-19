@@ -51,6 +51,9 @@ func _ready():
 	for receiver in get_node(boxReceiverContainer).get_children():
 		receiver.connect("scored", goal_scored)
 
+func _exit_tree():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if Input.is_action_just_pressed("interact"):

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctinrvrsy0r3j"]
 
-[ext_resource type="Texture2D" uid="uid://b8fvd1kce6b7c" path="res://Menu/bglogin.png" id="1_pv436"]
 [ext_resource type="Script" path="res://Menu/ProfileScreen.gd" id="1_r8ky7"]
-[ext_resource type="AudioStream" uid="uid://djqoicytg4bjc" path="res://sound/login.ogg" id="3_g7x73"]
+[ext_resource type="Texture2D" uid="uid://b8fvd1kce6b7c" path="res://Menu/bglogin.png" id="2_uxgun"]
+[ext_resource type="AudioStream" uid="uid://djqoicytg4bjc" path="res://sound/login.ogg" id="3_mwt7m"]
 
 [node name="Profile" type="Control"]
 layout_mode = 3
@@ -29,7 +29,11 @@ offset_right = 227.0
 offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_pv436")
+texture = ExtResource("2_uxgun")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="LoginLabel" type="Label" parent="Profile"]
 layout_mode = 1
@@ -118,7 +122,7 @@ offset_bottom = 42.0
 text = "Back"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_g7x73")
+stream = ExtResource("3_mwt7m")
 autoplay = true
 
 [connection signal="text_submitted" from="Profile/LabelName/Name" to="." method="_on_name_text_submitted"]

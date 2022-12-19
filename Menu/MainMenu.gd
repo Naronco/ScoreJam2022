@@ -1,7 +1,7 @@
 extends Control
 
 const Game = preload("res://GameWorld.tscn")
-const ProfileScreen = preload("res://Menu/Profile.tscn")
+@onready var ProfileScreen = load("res://Menu/Profile.tscn")
 const Highscores = preload("res://Menu/Highscores.tscn")
 
 # Called when the node enters the scene tree for the first time.
