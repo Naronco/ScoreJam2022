@@ -32,6 +32,7 @@ func _enter_tree():
 	do_reconnect = true
 
 func _exit_tree():
+	process_put(true)
 	do_reconnect = false
 	_client.close()
 
@@ -45,7 +46,7 @@ func _closed(was_clean = false):
 
 func reconnect():
 	# Initiate connection to the given URL.
-	if Global.authToken != "":
+	if Global.authToken != "" and !dedicated:
 		_client.handshake_headers = ["Authorization: Bearer " + Global.authToken]
 	#_client.supported_protocols = ["scoreboard-v1"]
 	var err = _client.connect_to_url(scoreboard_url)
@@ -112,19 +113,19 @@ func _process(delta):
 		print("WebSocket state change: ", previous_state, " -> ", state)
 		previous_state = state
 
-func process_put():
+func process_put(close = false):
 	if dedicated:
 		return
 	var score = Global.score
 	if put_id == -1:
-		if putting:
+		if putting and !close:
 			return
 		putting = true
 		submitted_score = score
 		send_json({
 			"op": "post",
 			"score": score,
-			"close": false
+			"close": close
 		})
 	else:
 		submitted_score = score
@@ -132,7 +133,7 @@ func process_put():
 			"op": "update",
 			"id": put_id,
 			"score": score,
-			"close": false
+			"close": close
 		})
 
 var _state = 0

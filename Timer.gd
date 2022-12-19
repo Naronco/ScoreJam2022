@@ -1,5 +1,6 @@
 extends Label
 
+const Gameover = preload("res://Menu/gameover.tscn")
 
 var timeRemaining = 3*60.0
 
@@ -13,7 +14,7 @@ func _ready():
 func _process(delta):
 	timeRemaining -= delta
 	if timeRemaining < 0.0:
-		# loose
+		get_tree().change_scene_to_packed(Gameover)
 		timeRemaining = 0.0
 	
 	var sec = int(timeRemaining)

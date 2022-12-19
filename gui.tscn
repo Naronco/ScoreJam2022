@@ -20,7 +20,6 @@ theme = ExtResource("1_7bi6q")
 
 [node name="Inventory" type="NinePatchRect" parent="."]
 visible = false
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -36,7 +35,6 @@ patch_margin_right = 6
 patch_margin_bottom = 6
 
 [node name="Grid" type="TextureRect" parent="Inventory"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -50,7 +48,7 @@ texture = ExtResource("3_r1yks")
 stretch_mode = 2
 
 [node name="Item" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -63,7 +61,6 @@ tooltip_text = "\"Package\""
 
 [node name="TextureRect" type="TextureRect" parent="Item"]
 texture_filter = 1
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -78,7 +75,6 @@ grow_vertical = 2
 texture = ExtResource("4_phyhh")
 
 [node name="PackageCount" type="Label" parent="Item"]
-layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -89,7 +85,6 @@ vertical_alignment = 1
 script = ExtResource("5_qyjkk")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
@@ -102,7 +97,6 @@ horizontal_alignment = 1
 script = ExtResource("6_bg80j")
 
 [node name="Highscore" type="Label" parent="."]
-layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -115,7 +109,6 @@ text = "Highscores"
 script = ExtResource("8_y8dms")
 
 [node name="Timer" type="Label" parent="."]
-layout_mode = 1
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 194.0

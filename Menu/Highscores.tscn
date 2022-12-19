@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b8fvd1kce6b7c" path="res://Menu/bglogin.png" id="2_ctlx1"]
 [ext_resource type="Script" path="res://Highscore.gd" id="3_t3rxt"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_nqavu"]
+[sub_resource type="LabelSettings" id="LabelSettings_4oqlv"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -42,7 +42,7 @@ anchor_right = 1.0
 offset_bottom = 38.0
 grow_horizontal = 2
 text = "Highscores"
-label_settings = SubResource("LabelSettings_nqavu")
+label_settings = SubResource("LabelSettings_4oqlv")
 horizontal_alignment = 1
 vertical_alignment = 2
 
@@ -54,7 +54,7 @@ anchor_bottom = 1.0
 offset_left = 13.0
 offset_top = 28.0
 offset_right = -15.0
-offset_bottom = -62.0
+offset_bottom = -483.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_t3rxt")
