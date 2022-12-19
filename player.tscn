@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bc804f87s5j06"]
+[gd_scene load_steps=21 format=3 uid="uid://bc804f87s5j06"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_mnq4v"]
 [ext_resource type="Texture2D" uid="uid://cemujvmyf5rri" path="res://BoxTexture.png" id="2_7cyn8"]
@@ -175,6 +175,61 @@ emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 3.0
 
+[sub_resource type="Shader" id="Shader_oum7w"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.0.beta8's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+
+varying vec3 arrow_vec;
+
+void vertex() {
+	arrow_vec = VERTEX;
+}
+
+void fragment() {
+	ALBEDO = vec3(0.0, 0.0, 0.0);
+
+	float arrow_loc = length((MODEL_MATRIX * vec4(arrow_vec, 0.0)).xz);
+	
+	float v = arrow_loc;
+	if (fract(v) > 0.05)
+	{
+		if (v <= 1.0) {
+			// green
+			EMISSION = vec3(v * 0.5, 0.5, 0.0);
+		} else if (v <= 2.0) {
+			// yellow
+			v -= 1.0;
+			EMISSION = vec3(1.0, 0.7 - v * 0.4, 0.0);
+		} else if (v <= 3.0) {
+			// orange
+			v -= 2.0;
+			EMISSION = vec3(0.8, 0.3 - v * 0.2, 0.0);
+		} else if (v <= 4.0) {
+			// red
+			v -= 3.0;
+			EMISSION = vec3(0.8 - v * 0.4, 0.0, v * 0.1);
+		} else if (v <= 5.0) {
+			// pink
+			v -= 4.0;
+			EMISSION = vec3(0.6 - v * 0.4, 0.0, 0.3 + v * 0.3);
+		} else if (v <= 6.0) {
+			// purple
+			v -= 5.0;
+			EMISSION = vec3(0.23 - v * 0.2, 0.0, 0.6 + v * 0.3);
+		} else {
+			// blue
+			EMISSION = vec3(0.0, 0.0, v - 5.0);
+		}
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2b2e4"]
+render_priority = 0
+shader = SubResource("Shader_oum7w")
+
 [node name="Player" type="RigidBody3D"]
 collision_layer = 3
 collision_mask = 3
@@ -196,6 +251,15 @@ shape = SubResource("2")
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.703999, 0)
 size = Vector3(0.566182, 1.42149, 0.477852)
+
+[node name="PickupArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.609362, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04525, 0)
+shape = SubResource("3")
 
 [node name="InteractArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.304681, 0)
@@ -248,5 +312,15 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 size = Vector3(0.2, 0.05, 0.2)
 material = SubResource("StandardMaterial3D_edj7l")
 
+[node name="StrengthCompass" type="Node3D" parent="."]
+visible = false
+
+[node name="Indicator" type="CSGPolygon3D" parent="StrengthCompass"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.5, 0.127797, 0)
+polygon = PackedVector2Array(0, 0, 1, 0.1, 1, -0.1)
+depth = 0.05
+material = SubResource("ShaderMaterial_2b2e4")
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="area_entered" from="InteractArea" to="." method="_on_InteractArea_area_entered"]
 [connection signal="area_exited" from="InteractArea" to="." method="_on_InteractArea_area_exited"]

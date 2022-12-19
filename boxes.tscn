@@ -1,5 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://dm4s4asdtqojm"]
+[gd_scene load_steps=7 format=3 uid="uid://dm4s4asdtqojm"]
 
 [ext_resource type="PackedScene" uid="uid://bxssaunh87hg2" path="res://Boxes.dae" id="1_x3x65"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_88ign"]
+size = Vector3(0.169696, 0.139623, 0.315493)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r566w"]
+size = Vector3(0.327926, 0.125798, 0.179834)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ws2gt"]
+size = Vector3(0.247998, 0.209319, 0.269664)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8l76u"]
+size = Vector3(0.164868, 0.139623, 0.17979)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7v3p4"]
+size = Vector3(0.251635, 0.0895921, 0.180276)
+
 [node name="Boxes" instance=ExtResource("1_x3x65")]
+
+[node name="RigidBody3D" type="StaticBody3D" parent="Cube004" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube004/RigidBody3D" index="0"]
+shape = SubResource("BoxShape3D_88ign")
+
+[node name="RigidBody3D" type="StaticBody3D" parent="Cube003" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube003/RigidBody3D" index="0"]
+shape = SubResource("BoxShape3D_r566w")
+
+[node name="RigidBody3D" type="StaticBody3D" parent="Cube002" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube002/RigidBody3D" index="0"]
+shape = SubResource("BoxShape3D_ws2gt")
+
+[node name="RigidBody3D" type="StaticBody3D" parent="Cube001" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube001/RigidBody3D" index="0"]
+shape = SubResource("BoxShape3D_8l76u")
+
+[node name="RigidBody3D" type="StaticBody3D" parent="Cube" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/RigidBody3D" index="0"]
+shape = SubResource("BoxShape3D_7v3p4")

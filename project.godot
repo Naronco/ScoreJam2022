@@ -84,9 +84,11 @@ jump={
 
 [layer_names]
 
+3d_physics/layer_1="Everything"
 3d_physics/layer_2="IsPlayer"
 3d_physics/layer_3="IsMob"
 3d_physics/layer_4="IsBox"
+3d_physics/layer_5="AllStatic"
 3d_physics/layer_17="PlayerInteractibleMask"
 
 [physics]

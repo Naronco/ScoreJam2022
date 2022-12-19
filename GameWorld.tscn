@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://b1lpjmmgbed8y"]
+[gd_scene load_steps=18 format=3 uid="uid://b1lpjmmgbed8y"]
 
 [ext_resource type="PackedScene" uid="uid://dmmh6pklckqiy" path="res://DeliveryTruck.tscn" id="1"]
 [ext_resource type="Script" path="res://CameraOrigin.gd" id="2"]
+[ext_resource type="MeshLibrary" uid="uid://bsakc4k5q1rs7" path="res://boxes.tres" id="3_ml2a2"]
 [ext_resource type="PackedScene" uid="uid://bc804f87s5j06" path="res://player.tscn" id="4_fo51s"]
 [ext_resource type="PackedScene" uid="uid://do0ck0dsidf8b" path="res://gui.tscn" id="5_wmv0a"]
 [ext_resource type="PackedScene" uid="uid://c2r6dq30qb0tu" path="res://Bullet.tscn" id="8_d7kmo"]
@@ -40,6 +41,7 @@ environment = ExtResource("12_ixt3a")
 process_priority = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -8)
 boxReceiverContainer = NodePath("../BoxReceivers")
+boxGenerator = ExtResource("3_ml2a2")
 
 [node name="CameraOrigin" type="Node3D" parent="."]
 transform = Transform3D(0.866026, 0.408069, 0.288929, 0, 0.577858, -0.816138, -0.5, 0.706796, 0.500439, -9, 0, -8)

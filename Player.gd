@@ -13,6 +13,7 @@ var mount = null
 
 @export var cameraPath: NodePath
 @export var boxReceiverContainer: NodePath
+@export var boxGenerator: MeshLibrary
 @export var movementForce: float = 100.0
 @export var airMovementForce: float = 30.0
 @export var packetMovementPenalty: float = 3.0
@@ -24,6 +25,7 @@ var mount = null
 @export var walljump_force: float = 30.0
 
 @export var zoom_regular: float = 25
+@export var zoom_max_aim: float = 50
 @export var zoom_mounted: float = 70
 
 @onready var camera = get_node(cameraPath)
@@ -34,7 +36,9 @@ var previous_collision_mask = 0
 
 var visible_boxes = 0
 
-var current_goal = 0
+var current_goal = null
+
+var aim_drag_position = Vector2(0, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -93,6 +97,64 @@ func _process(delta):
 
 		highlight_goal()
 
+func aim(rot, strength):
+	strength = min(strength, 6.0)
+	if visible_boxes > 0:
+		$StrengthCompass.visible = true
+		$StrengthCompass.global_rotation.y = rot
+		$StrengthCompass/Indicator.scale = Vector3(strength, strength, 1.0)
+		camera.set_target(self, zoom_regular + (zoom_max_aim - zoom_regular) * (strength / 6.0))
+
+func unaim():
+	$StrengthCompass.visible = false
+	if visible_boxes > 0:
+		var strength = $StrengthCompass/Indicator.scale.x
+		var rot = $StrengthCompass.global_rotation.y
+		if strength > 0.01:
+			var box = RigidBody3D.new()
+			var colliderBox = CollisionShape3D.new()
+			var meshRenderer = MeshInstance3D.new()
+			
+			var boxes = boxGenerator.get_item_list()
+			var boxIndex = boxes[randi_range(0, boxes.size() - 1)]
+			var boxMesh = boxGenerator.get_item_mesh(boxIndex);
+			meshRenderer.mesh = boxMesh;
+			var boxColliders = boxGenerator.get_item_shapes(boxIndex);
+			colliderBox.shape = boxColliders[0];
+			colliderBox.transform = boxColliders[1]
+			
+			box.add_child(colliderBox)
+			box.add_child(meshRenderer)
+			
+			box.collision_layer = 0b11000;
+			box.collision_mask = 0b11000;
+			
+			box.global_position = $CarriedBoxes.global_position
+			box.linear_velocity = (Vector3(1.0, 2.0, 0.0) * strength).rotated(Vector3(0, 1, 0), rot + PI)
+
+			get_parent().add_child(box)
+			Global.dropPackage()
+			
+			await get_tree().create_timer(0.5).timeout
+			
+			box.collision_layer = 0b11001;
+			box.collision_mask = 0b11001;
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+				aim_drag_position = Vector2(0, 0)
+			else:
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				unaim()
+
+	elif event is InputEventMouseMotion:
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			aim_drag_position += event.relative * Vector2(1.0, 2.0)
+			aim(-atan2(aim_drag_position.y, aim_drag_position.x) + deg_to_rad(30.0), max(0, aim_drag_position.length() * 0.01 - 1.0))
+
 func get_holding_box(i):
 	return $CarriedBoxes.get_child(i)
 
@@ -102,12 +164,12 @@ func highlight_goal():
 		return
 	
 	var boxes = get_node(boxReceiverContainer)
-	if boxes.get_child(current_goal).needs_packet():
+	if current_goal != null && current_goal.needs_packet():
 		return
 
-	var next_goal = boxes.get_child(randi_range(0, boxes.get_child_count() - 1))
-	next_goal.set_goal()
-	$PacketCompass.set_goal(next_goal)
+	current_goal = boxes.get_child(randi_range(0, boxes.get_child_count() - 1))
+	current_goal.set_goal()
+	$PacketCompass.set_goal(current_goal)
 
 func interact():
 	var interacts = $InteractArea.get_overlapping_areas()
@@ -172,3 +234,9 @@ func get_effective_position():
 		return global_position
 	else:
 		return mount.global_position
+
+
+func _on_PickupArea_body_entered(body):
+	if (body.collision_layer & 0b1) != 0:
+		if Global.equipPackage():
+			body.get_parent().remove_child(body)

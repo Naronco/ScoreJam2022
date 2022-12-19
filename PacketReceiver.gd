@@ -7,15 +7,13 @@ func _ready():
 	self.connect("body_entered", on_body_entered)
 
 func on_body_entered(body: PhysicsBody3D):
-	if needs && (body.collision_mask & 0b1000) != 0:
-		body.collision_mask &= ~0b1000
+	if needs:
 		Global.gotPacket()
 		needs = false
-		print("unhighlight", self)
+		body.get_parent().remove_child(body)
 
 func set_goal():
-	print("highlight", self)
 	needs = true
 
 func needs_packet():
-	needs = false
+	return needs
