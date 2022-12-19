@@ -14,9 +14,18 @@ grow_vertical = 2
 
 [node name="BgName" type="NinePatchRect" parent="."]
 texture_filter = 1
-layout_mode = 0
-offset_right = 543.0
-offset_bottom = 385.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -122.0
+offset_right = 163.5
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_u45ep")
 patch_margin_left = 8
 patch_margin_top = 8
@@ -49,11 +58,6 @@ offset_right = 107.0
 offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="SubmitName" type="Button" parent="BgName"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
 
 [node name="Button" type="Button" parent="BgName"]
 layout_mode = 1
