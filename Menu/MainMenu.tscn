@@ -81,4 +81,5 @@ stream = ExtResource("3_4j7dv")
 autoplay = true
 
 [connection signal="pressed" from="NinePatchRect/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="NinePatchRect/Scoreboard" to="." method="_on_scoreboard_pressed"]
 [connection signal="pressed" from="NinePatchRect/Profile" to="." method="_on_profile_pressed"]

@@ -9,6 +9,7 @@ func _ready():
 func _enter_tree():
 	$Profile/ErrorLabel.text = ""
 	$Profile/LabelName/Name.text = Global.username
+	$Profile/BackBtn.visible = Global.username != ""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

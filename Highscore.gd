@@ -14,19 +14,31 @@ var self_online_score = -1;
 var put_id = -1;
 var putting = false
 var put_timeout = 0.2
+var do_reconnect = true
 
 var previous_state = WebSocketPeer.STATE_CLOSED
 
 @export var entry_height: float = 20.0
+@export var dedicated = false
 
 var virtual_scoreboard = {}
 
 func _ready():
-	virtual_scoreboard[-1] = create_local_score()
+	if !dedicated:
+		virtual_scoreboard[-1] = create_local_score()
+
+func _enter_tree():
 	reconnect()
+	do_reconnect = true
+
+func _exit_tree():
+	do_reconnect = false
+	_client.close()
 
 func _closed(was_clean = false):
 	set_process(false)
+	if !do_reconnect:
+		return
 	await get_tree().create_timer(1.0).timeout
 	submitted_score = 0
 	reconnect()
@@ -69,7 +81,8 @@ func send_json(data):
 func _process(delta):
 	_client.poll()
 	
-	update_local_score(virtual_scoreboard[-1])
+	if !dedicated:
+		update_local_score(virtual_scoreboard[-1])
 
 	var state = _client.get_ready_state()
 	if state == WebSocketPeer.STATE_OPEN:
@@ -100,6 +113,8 @@ func _process(delta):
 		previous_state = state
 
 func process_put():
+	if dedicated:
+		return
 	var score = Global.score
 	if put_id == -1:
 		if putting:
@@ -154,11 +169,17 @@ func update_score(ventry, score, state):
 		update_local_score(ventry)
 	else:
 		ventry.state = state
-		ventry.username = score["author"]["username"]
+		if dedicated:
+			ventry.username = score["createdAt"] + " (UTC) - " + score["author"]["username"]
+		else:
+			ventry.username = score["author"]["username"]
 		ventry.score = score["score"]
 		ventry.closed = score["closed"]
 
 func update_local_score(ventry):
+	if dedicated:
+		return
+
 	if self_online_score != -1 \
 			and virtual_scoreboard.has(self_online_score) \
 			and !virtual_scoreboard[self_online_score].overriden_by_local \

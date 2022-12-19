@@ -2,6 +2,7 @@ extends Control
 
 const Game = preload("res://GameWorld.tscn")
 const ProfileScreen = preload("res://Menu/Profile.tscn")
+const Highscores = preload("res://Menu/Highscores.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,3 +17,6 @@ func _on_start_pressed():
 
 func _on_profile_pressed():
 	get_tree().change_scene_to_packed(ProfileScreen)
+
+func _on_scoreboard_pressed():
+	get_tree().change_scene_to_packed(Highscores)
