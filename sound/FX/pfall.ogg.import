@@ -1,0 +1,16 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOGGVorbis"
+uid="uid://chhfqsfvvge5r"
+path="res://.godot/imported/pfall.ogg-920fcaab81315814f8284265bed27060.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/FX/pfall.ogg"
+dest_files=["res://.godot/imported/pfall.ogg-920fcaab81315814f8284265bed27060.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0

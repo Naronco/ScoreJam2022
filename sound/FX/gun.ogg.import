@@ -1,0 +1,16 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOGGVorbis"
+uid="uid://b6bqswpe8gvio"
+path="res://.godot/imported/gun.ogg-3640b6fe4ac2025e2e2f6eabc5cfdee5.oggvorbisstr"
+
+[deps]
+
+source_file="res://sound/FX/gun.ogg"
+dest_files=["res://.godot/imported/gun.ogg-3640b6fe4ac2025e2e2f6eabc5cfdee5.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0

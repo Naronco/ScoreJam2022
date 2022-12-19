@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1lpjmmgbed8y"]
+[gd_scene load_steps=20 format=3 uid="uid://b1lpjmmgbed8y"]
 
 [ext_resource type="PackedScene" uid="uid://dmmh6pklckqiy" path="res://DeliveryTruck.tscn" id="1"]
 [ext_resource type="Script" path="res://CameraOrigin.gd" id="2"]
 [ext_resource type="MeshLibrary" uid="uid://bsakc4k5q1rs7" path="res://boxes.tres" id="3_ml2a2"]
+[ext_resource type="AudioStream" uid="uid://dd24ylkdirmgg" path="res://sound/FX/throw.wav" id="4_7ti3k"]
 [ext_resource type="PackedScene" uid="uid://bc804f87s5j06" path="res://player.tscn" id="4_fo51s"]
 [ext_resource type="PackedScene" uid="uid://do0ck0dsidf8b" path="res://gui.tscn" id="5_wmv0a"]
 [ext_resource type="PackedScene" uid="uid://c2r6dq30qb0tu" path="res://Bullet.tscn" id="8_d7kmo"]
 [ext_resource type="Script" path="res://PacketReceiver.gd" id="8_sf3rr"]
+[ext_resource type="AudioStream" uid="uid://cx40i4wewe70m" path="res://sound/game.ogg" id="12_gece6"]
 [ext_resource type="Environment" uid="uid://eklt5i3g1r3s" path="res://default_env.tres" id="12_ixt3a"]
 [ext_resource type="PackedScene" uid="uid://cbmfoywaini40" path="res://overworld.tscn" id="12_t3mrl"]
 [ext_resource type="PackedScene" uid="uid://bk02brlc2makj" path="res://Mob.tscn" id="13_ykp70"]
@@ -42,6 +44,9 @@ process_priority = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -8)
 boxReceiverContainer = NodePath("../BoxReceivers")
 boxGenerator = ExtResource("3_ml2a2")
+
+[node name="ThrowSound" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("4_7ti3k")
 
 [node name="CameraOrigin" type="Node3D" parent="."]
 transform = Transform3D(0.866026, 0.408069, 0.288929, 0, 0.577858, -0.816138, -0.5, 0.706796, 0.500439, -9, 0, -8)
@@ -145,6 +150,10 @@ script = ExtResource("8_sf3rr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoxReceivers/Receiver2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, -0.3, 0)
 shape = SubResource("BoxShape3D_8bn7n")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_gece6")
+autoplay = true
 
 [connection signal="body_entered" from="InsideAreas" to="Player" method="_on_InsideAreas_enter"]
 [connection signal="body_exited" from="InsideAreas" to="Player" method="_on_InsideAreas_leave"]

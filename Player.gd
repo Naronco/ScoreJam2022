@@ -143,6 +143,8 @@ func unaim():
 			box.collision_layer = 0b11001;
 			box.collision_mask = 0b11001;
 			
+			$ThrowSound.play()
+			
 			var bodiesInRange = $PickupArea.get_overlapping_bodies()
 			for body in bodiesInRange:
 				_on_PickupArea_body_entered(body)

@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://dspf2fl83hrca"]
+
+[ext_resource type="Texture2D" uid="uid://b8fvd1kce6b7c" path="res://Menu/bglogin.png" id="1_u45ep"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d3wyo"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BgName" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 543.0
+offset_bottom = 385.0
+texture = ExtResource("1_u45ep")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="NameLabel" type="Label" parent="BgName"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -77.5
+offset_top = 38.0
+offset_right = 77.5
+offset_bottom = 64.0
+grow_horizontal = 2
+text = "What is your Name?"
+label_settings = SubResource("LabelSettings_d3wyo")
+
+[node name="NameBox" type="LineEdit" parent="BgName"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -107.0
+offset_top = -17.0
+offset_right = 107.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubmitName" type="Button" parent="BgName"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
