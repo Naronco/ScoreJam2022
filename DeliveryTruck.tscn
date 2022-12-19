@@ -102,7 +102,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286388, 1.29665, 0)
 shape = SubResource("4")
 
 [node name="TrunkBounds" type="Area3D" parent="."]
+process_mode = 4
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.15035e-07, 0, -2.40239)
+visible = false
 collision_layer = 65536
 collision_mask = 65536
 script = ExtResource("5")

@@ -239,6 +239,7 @@ func setMount(node):
 	$PacketCompass.scale = Vector3(3, 3, 3)
 	$PacketCompass/CSGBox3D.position = Vector3(5.0, 0.058, 0.0)
 	$StrengthCompass.scale = Vector3(8, 8, 8)
+	Global.canInteract = false
 
 func unmount():
 	$Visible.visible = true
@@ -257,7 +258,7 @@ func unmount():
 
 func _on_InteractArea_area_entered(area):
 	num_areas += 1
-	Global.canInteract = true
+	Global.canInteract = mount == null
 
 func _on_InteractArea_area_exited(area):
 	num_areas -= 1
