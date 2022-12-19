@@ -158,11 +158,6 @@ func update_score(ventry, score, state):
 		ventry.score = score["score"]
 		ventry.closed = score["closed"]
 
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_MIDDLE:
-			Global.gotPacket()
-
 func update_local_score(ventry):
 	if self_online_score != -1 \
 			and virtual_scoreboard.has(self_online_score) \
