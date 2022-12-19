@@ -52,6 +52,7 @@ func _process(delta):
 	# shoot?
 	if followPlayer:
 		shootTimer -= delta
+		$ShootingBullet.play()
 		
 		if shootTimer < 0.0:
 			var inst = bullet.instantiate()
