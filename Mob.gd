@@ -10,7 +10,7 @@ var followPlayer = false
 
 
 var shootTimer = 0.0
-var shootCooldown = 0.1
+var shootCooldown = 0.5
 
 var spawnPos
 
