@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://do0ck0dsidf8b"]
+[gd_scene load_steps=9 format=3 uid="uid://do0ck0dsidf8b"]
 
 [ext_resource type="Theme" uid="uid://b0i0qmtemq4qw" path="res://theme.tres" id="1_7bi6q"]
 [ext_resource type="Texture2D" uid="uid://c1hmmr68dqhtv" path="res://UIBox.png" id="2_k6mst"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://PackageCount.gd" id="5_qyjkk"]
 [ext_resource type="Script" path="res://InteractLabel.gd" id="6_bg80j"]
 [ext_resource type="Script" path="res://Score.gd" id="7_0gsx2"]
+[ext_resource type="Script" path="res://Highscore.gd" id="8_y8dms"]
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -102,3 +103,15 @@ offset_right = 194.0
 offset_bottom = 44.0
 text = "Score: 0"
 script = ExtResource("7_0gsx2")
+
+[node name="Highscore" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -194.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 44.0
+grow_horizontal = 0
+text = "Highscores"
+script = ExtResource("8_y8dms")
