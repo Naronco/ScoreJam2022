@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlkagv6jrfexx"]
+
+[ext_resource type="PackedScene" uid="uid://cbpuhurkvsosj" path="res://DecoTiles.dae" id="1_to0us"]
+[ext_resource type="Material" uid="uid://cngre30tnb0na" path="res://SideWalk.tres" id="2_6ahoa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3j5w6"]
+size = Vector3(2, 0.08, 2)
+
+[node name="DecoTiles" instance=ExtResource("1_to0us")]
+
+[node name="RoadStripe" parent="." index="3"]
+surface_material_override/0 = ExtResource("2_6ahoa")
+
+[node name="SideWalkEdge" parent="." index="4"]
+surface_material_override/0 = ExtResource("2_6ahoa")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SideWalkEdge" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SideWalkEdge/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+shape = SubResource("BoxShape3D_3j5w6")
+
+[node name="SideWalk" parent="." index="5"]
+surface_material_override/0 = ExtResource("2_6ahoa")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SideWalk" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SideWalk/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+shape = SubResource("BoxShape3D_3j5w6")
