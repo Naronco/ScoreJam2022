@@ -15,25 +15,25 @@
 [ext_resource type="AudioStream" uid="uid://cmfqegwg5khby" path="res://sound/FX/balcon.wav" id="12_yxjma"]
 [ext_resource type="PackedScene" uid="uid://bk02brlc2makj" path="res://Mob.tscn" id="13_ykp70"]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_oo3uo"]
+[sub_resource type="NavigationMesh" id="NavigationMesh_m6451"]
 sample_partition_type = 2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_af84u"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_v81kx"]
 size = Vector3(16, 10, 16)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0werk"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_a8xam"]
 size = Vector3(8, 10, 8)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2ef3n"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_8cslw"]
 size = Vector3(8, 10, 12)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ovat1"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_0qscy"]
 size = Vector3(20, 10, 16)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r1i31"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_fg4bv"]
 size = Vector3(12, 10, 8)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_m4dmd"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_gyo88"]
 size = Vector3(1.2, 3.8, 0.2)
 
 [node name="Node3D" type="Node3D"]
@@ -49,6 +49,9 @@ boxGenerator = ExtResource("3_ml2a2")
 
 [node name="ThrowSound" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("4_7ti3k")
+
+[node name="PackageIn" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("12_yxjma")
 
 [node name="CameraOrigin" type="Node3D" parent="."]
 transform = Transform3D(0.866026, 0.408069, 0.288929, 0, 0.577858, -0.816138, -0.5, 0.706796, 0.500439, -9, 0, -8)
@@ -78,7 +81,7 @@ stream = ExtResource("10_llw5k")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.6215)
-navmesh = SubResource("NavigationMesh_oo3uo")
+navmesh = SubResource("NavigationMesh_m6451")
 
 [node name="InsideAreas" type="Area3D" parent="."]
 collision_layer = 2
@@ -86,51 +89,51 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 5, -24)
-shape = SubResource("BoxShape3D_af84u")
+shape = SubResource("BoxShape3D_v81kx")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, -20)
-shape = SubResource("BoxShape3D_0werk")
+shape = SubResource("BoxShape3D_a8xam")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 5, -10)
-shape = SubResource("BoxShape3D_2ef3n")
+shape = SubResource("BoxShape3D_8cslw")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5, 4)
-shape = SubResource("BoxShape3D_ovat1")
+shape = SubResource("BoxShape3D_0qscy")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5, 28)
-shape = SubResource("BoxShape3D_r1i31")
+shape = SubResource("BoxShape3D_fg4bv")
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 5, 50)
-shape = SubResource("BoxShape3D_r1i31")
+shape = SubResource("BoxShape3D_fg4bv")
 
 [node name="CollisionShape3D8" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 5, 50)
-shape = SubResource("BoxShape3D_r1i31")
+shape = SubResource("BoxShape3D_fg4bv")
 
 [node name="CollisionShape3D9" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 5, 50)
-shape = SubResource("BoxShape3D_r1i31")
+shape = SubResource("BoxShape3D_fg4bv")
 
 [node name="CollisionShape3D10" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 5, 74)
-shape = SubResource("BoxShape3D_r1i31")
+shape = SubResource("BoxShape3D_fg4bv")
 
 [node name="CollisionShape3D11" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 20, 5, 74)
-shape = SubResource("BoxShape3D_r1i31")
+shape = SubResource("BoxShape3D_fg4bv")
 
 [node name="CollisionShape3D12" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 5, 74)
-shape = SubResource("BoxShape3D_r1i31")
+shape = SubResource("BoxShape3D_fg4bv")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="InsideAreas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 5, 28)
-shape = SubResource("BoxShape3D_r1i31")
+shape = SubResource("BoxShape3D_fg4bv")
 
 [node name="Bullet" parent="." instance=ExtResource("8_d7kmo")]
 
@@ -144,7 +147,7 @@ script = ExtResource("8_sf3rr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoxReceivers/Receiver1"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, -0.3, 0)
-shape = SubResource("BoxShape3D_m4dmd")
+shape = SubResource("BoxShape3D_gyo88")
 
 [node name="Receiver2" type="Area3D" parent="BoxReceivers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 4, -26)
@@ -154,10 +157,7 @@ script = ExtResource("8_sf3rr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoxReceivers/Receiver2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, -0.3, 0)
-shape = SubResource("BoxShape3D_m4dmd")
-
-[node name="PackageIn" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("12_yxjma")
+shape = SubResource("BoxShape3D_gyo88")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_gece6")

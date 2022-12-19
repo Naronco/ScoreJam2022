@@ -191,6 +191,8 @@ func highlight_goal():
 
 func goal_scored():
 	highlight_goal()
+	$PackageIn.play()
+	$ThrowSound.stop()
 
 func interact():
 	var interacts = $InteractArea.get_overlapping_areas()
